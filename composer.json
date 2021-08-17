@@ -4,7 +4,7 @@
     "dissonance/ui_backend": "1.*"
   },
   "license": "MIT",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "autoload": {
     "psr-4": {
       "Dissonance\\Develop\\": "src/"
@@ -22,10 +22,7 @@
         "routing": "\\Dissonance\\Develop\\Routing",
         "controllers_namespace": "\\Dissonance\\Develop\\Controllers",
         "version": "1.0.0",
-        "requires": [],
-        "providers": [
-          "\\Dissonance\\Develop\\Providers\\AppProvider"
-        ]
+        "requires": []
       }
     }
   }
