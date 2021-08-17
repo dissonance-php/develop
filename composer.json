@@ -1,0 +1,32 @@
+{
+  "name": "dissonance/develop",
+  "require": {
+    "dissonance/ui_backend": "dev-master"
+  },
+  "license": "MIT",
+  "version": "1.0.0",
+  "autoload": {
+    "psr-4": {
+      "Dissonance\\Develop\\": "src/"
+    },
+    "files": [
+      "src/functions.php"
+    ]
+  },
+  "extra": {
+    "dissonance": {
+      "id": "develop",
+      "app": {
+        "id": "develop",
+        "name": "Develop",
+        "routing": "\\Dissonance\\Develop\\Routing",
+        "controllers_namespace": "\\Dissonance\\Develop\\Controllers",
+        "version": "1.0.0",
+        "requires": [],
+        "providers": [
+          "\\Dissonance\\Develop\\Providers\\AppProvider"
+        ]
+      }
+    }
+  }
+}
