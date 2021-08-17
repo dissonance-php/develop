@@ -1,7 +1,7 @@
 {
   "name": "dissonance/develop",
   "require": {
-    "dissonance/ui_backend": "dev-master"
+    "dissonance/ui_backend": "1.*"
   },
   "license": "MIT",
   "version": "1.0.0",
