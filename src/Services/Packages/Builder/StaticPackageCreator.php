@@ -165,7 +165,7 @@ class StaticPackageCreator implements StaticPackageInterface
     {
         $this->createFile(
             $this->getPackagePath('composer.json'),
-            \json_encode($this->composer, JSON_UNESCAPED_SLASHES| JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT | JSON_THROW_ON_ERROR)
+            \json_encode($this->composer, JSON_UNESCAPED_SLASHES| JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT /*| JSON_THROW_ON_ERROR*/)
         );
     }
 

@@ -1,6 +1,7 @@
 {
   "name": "dissonance/develop",
   "require": {
+    "php": ">=7.2",
     "dissonance/ui_backend": "1.*"
   },
   "license": "MIT",
