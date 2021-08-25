@@ -13,8 +13,11 @@
         <li>
             <a href="{{route('backend:develop::monitor.phpinfo')}}" >PhpInfo</a>
         </li>
-
         <li>
-            <a href="{{route('backend:develop::cache_clean')}}" >Очистка кеша</a>
+            <a href="{{route('backend:develop::PackagesBuilding.PackagesCreator.index')}}" >Генерация пакетов</a>
+        </li>
+        <li>
+            <a href="{{route('backend:develop::cache.clean')}}" >Очистка кеша</a>
         </li>
 @stop
+@yield('content')

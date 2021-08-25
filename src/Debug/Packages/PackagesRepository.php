@@ -2,10 +2,10 @@
 
 namespace Dissonance\Develop\Debug\Packages;
 
-use Dissonance\Contracts\CoreInterface;
+use Dissonance\Core\CoreInterface;
 use Dissonance\Develop\Services\Debug\Timer;
-use Dissonance\Packages\Contracts\PackagesLoaderInterface;
-use Dissonance\Packages\Contracts\PackagesRepositoryInterface;
+use Dissonance\Packages\PackagesLoaderInterface;
+use Dissonance\Packages\PackagesRepositoryInterface;
 use function _DS\app;
 
 class PackagesRepository implements PackagesRepositoryInterface
@@ -27,7 +27,7 @@ class PackagesRepository implements PackagesRepositoryInterface
         $this->object = $packages;
     }
 
-    public function load(CoreInterface $app): void
+    public function load(): void
     {
         app(Timer::class)->start('load_packages');
         $this->call(__FUNCTION__, func_get_args());
@@ -44,9 +44,25 @@ class PackagesRepository implements PackagesRepositoryInterface
         return $this->call(__FUNCTION__, func_get_args());
     }
 
-    public function getPackages(): array
+    public function getIds(): array
+    {
+        $name =  app(Timer::class)->start();
+        $data = $this->call(__FUNCTION__, func_get_args());
+        app(Timer::class)->end($name);
+        return $data;
+    }
+
+    public function getBootstraps(): array
     {
         return $this->call(__FUNCTION__, func_get_args());
+    }
+
+    public function getPackages(): array
+    {
+      $name =  app(Timer::class)->start();
+        $data = $this->call(__FUNCTION__, func_get_args());
+        app(Timer::class)->end($name);
+        return $data;
     }
 
     public function addPackagesLoader(PackagesLoaderInterface $loader): void

@@ -35,7 +35,7 @@
     </div>
     <?php
     /**
-     * @var \Dissonance\Contracts\Routing\RouteInterface $route
+     * @var \Dissonance\Routing\RouteInterface $route
      */
     ?>
     <div class="row">
@@ -67,7 +67,7 @@
 <div class="section">
     <?php
     /**
-     * @var  \Dissonance\Contracts\App\ApplicationInterface $app
+     * @var  \Dissonance\Apps\ApplicationInterface $app
      */
     ?>
     <div class="row">

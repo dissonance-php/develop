@@ -4,7 +4,7 @@
 namespace DummyPackageNamespace;
 
 
-use Dissonance\Contracts\Routing\RouterInterface;
+use Dissonance\Routing\RouterInterface;
 use Dissonance\Routing\AppRouting;
 
 
@@ -53,11 +53,12 @@ class DummyClass extends AppRouting
     public function frontendRoutes(RouterInterface $router)
     {
         /**
+         * @link #FRAMEWORK_ROOT_URI#/#APP_ID#/
          * @uri /framework_root/#APP_ID#/ - корневой екшен приложения
-         * @uses \DummyPackageNamespace\Controllers\Http\Frontend\Index::index()
+         * @uses \DummyPackageNamespace\Http\Controllers\Frontend\Index::index()
          */
         $router->get('/', [
-            'uses' => 'Index@index',
+            'uses' => 'Frontend\\Index@index',
             'as' => 'home',
         ]);
 
@@ -73,13 +74,14 @@ class DummyClass extends AppRouting
     public function defaultRoutes(RouterInterface $router)
     {
         /**
-         * @uri /framework_root/default_d2r4334tf3fd34rdd23dd33d3/ роут от корня фреймоворка
-         * @route("default::#APP_ID#.md5_route")
+         * @link #FRAMEWORK_ROOT_URI#/default_#APP_ID#/ - md5 кривой, но
+         * @uri /framework_root/default_#APP_ID#/ роут от корня фреймоворка
+         * @route("default:#APP_ID#::md5_route")
          *
-         * @uses \DummyPackageNamespace\Http\Controllers\Frontend\Index::default()
+         * @uses \DummyPackageNamespace\Http\Controllers\Frontend\Index::app_md5()
          */
-        $router->get('default_'.\md5($this->app->getId()), [
-            'uses' => 'Index@app_md5',
+        $router->get('default_'.$this->getAppId(), [
+            'uses' => 'Frontend\\Index@app_md5',
             'as' => 'md5_route',
         ]);
     }

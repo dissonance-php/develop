@@ -3,7 +3,7 @@
 namespace Dissonance\Develop\Services\Monitoring;
 
 
-use Dissonance\Packages\Contracts\PackagesRepositoryInterface;
+use Dissonance\Packages\PackagesRepositoryInterface;
 
 class PackagesInfo
 {

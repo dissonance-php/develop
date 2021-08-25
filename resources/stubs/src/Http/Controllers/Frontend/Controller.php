@@ -2,8 +2,8 @@
 
 namespace DummyNamespace;
 
-use Dissonance\Contracts\App\AppConfigInterface;
-use Dissonance\View\View;
+use Dissonance\Apps\AppConfigInterface;
+use Dissonance\Core\View\View;
 
 
 class DummyClass

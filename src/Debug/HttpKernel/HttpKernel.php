@@ -3,7 +3,7 @@
 namespace Dissonance\Develop\Debug\HttpKernel;
 
 
-use Dissonance\Contracts\Http\HttpKernelInterface;
+use Dissonance\Core\HttpKernelInterface;
 use Dissonance\Develop\Services\Debug\Timer;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

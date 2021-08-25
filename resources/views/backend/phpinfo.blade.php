@@ -6,5 +6,6 @@
         max-height: inherit;
     }
 </style>
-{!! $phpinfo !!}
+<div class="row cols-sm-12 cols-md-8 col-sm-offset-1">{!! $phpinfo !!}</div>
+
 

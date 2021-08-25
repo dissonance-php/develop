@@ -2,7 +2,7 @@
 
 namespace Dissonance\Develop\Services\Monitoring;
 
-use Dissonance\Contracts\CoreInterface;
+use Dissonance\Core\CoreInterface;
 
 class Core implements CoreInterface {
 

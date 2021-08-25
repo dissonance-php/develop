@@ -20,8 +20,11 @@
         "id": "develop",
         "name": "Develop",
         "routing": "\\Dissonance\\Develop\\Routing",
-        "controllers_namespace": "\\Dissonance\\Develop\\Controllers",
+        "controllers_namespace": "\\Dissonance\\Develop\\Http\\Controllers",
         "version": "1.0.0",
+        "providers": [
+          "\\Dissonance\\Develop\\Providers\\AppProvider"
+        ],
         "requires": []
       }
     }

@@ -31,7 +31,14 @@
             <td>
                 {{isset($v['app']['name'])?$v['app']['name']:'null'}}
             </td>
-            <td>{{$v['app']['routing']}}</td>
+            <td>
+                @if(!empty($v['app']['routing']))
+                    <a href="{{route('backend:develop::apps.routes', ['app_id' => $v['id']])}}" target="_blank">
+                        {{$v['app']['routing']}}
+                    </a>
+                @endif
+
+            </td>
             <td>{{$packages->getCountAppPlugins($v['id'])}}</td>
             <td>{{ (isset($v['bootstrappers'])?'Да':"") }}</td>
             <td>{{ (isset($v['providers'])?'Да':"") }}</td>

@@ -11,18 +11,20 @@ class Timer
     /**
      * Sets start microtime
      *
-     * @return void
+     * @return string
      */
-    public function start(string $name)
+    public function start(string $name = null)
     {
         if(!$name) {
             $d = debug_backtrace(2,2);
-           $name =\md5(\serialize($d[1])).(isset($d[1]['class'])? $d[1]['class'].'::'.$d[1]['function']: $d[1]['function']);
+           $name =(isset($d[1]['class'])? $d[1]['class'].'::'.$d[1]['function']: $d[1]['function']).'-'.substr(\md5(\serialize($d[1]).microtime()),0,5);
         }
         $this->timers[$name] = [
             'name' => $name,
             'start' =>  \microtime(true)
         ];
+
+        return $name;
     }
 
     /**
@@ -120,9 +122,9 @@ class Timer
             $time = round($microtime, $round);
         } else {
             $unit = 'ms';
-            $time = round($microtime*1000);
+            $time = round($microtime*1000, 3);
 
-            $format = preg_replace('/(%.[\d]+f)/', '%d', $format);
+          //  $format = preg_replace('/(%.[\d]+f)/', '%3f', $format);
         }
 
         return sprintf($format, $time, $unit);

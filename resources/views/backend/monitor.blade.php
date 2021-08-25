@@ -39,10 +39,11 @@
     <div class="col-md-12 col-sm-12">
         <h3>Тайминги</h3>
     </div>
-    <div class="col-sm-12 col-md-6 row">
+    <div class="col-sm-12 col-md-8 row">
         @foreach($timer->getTimers() as $v)
-            <div class="col-sm-6 col-md-4">{{$v['name']}}</div>
+            <div class="col-sm-6 col-md-6">{{substr($v['name'],-40)}}</div>
             <div class="col-sm-4 col-md-6">{{$v['time']}} mem: {{$v['memory']}}</div>
         @endforeach
     </div>
+
 </div>

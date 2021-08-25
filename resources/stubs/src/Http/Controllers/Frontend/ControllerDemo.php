@@ -3,9 +3,15 @@
 namespace DummyNamespace;
 
 
-use Dissonance\ {Mimetypes\MimeTypesMini, Http\DownloadResponse, View\View};
-use Dissonance\Contracts\ {App\AppConfigInterface, App\ApplicationInterface, CoreInterface, Routing\RouteInterface};
-use Dissonance\Packages\Contracts\ {AssetsRepositoryInterface, ResourcesRepositoryInterface};
+use Dissonance\Apps\AppConfigInterface;
+use Dissonance\Apps\ApplicationInterface;
+use Dissonance\Core\CoreInterface;
+use Dissonance\Core\View\View;
+use Dissonance\Http\DownloadResponse;
+use Dissonance\Mimetypes\MimeTypesMini;
+use Dissonance\Packages\AssetsRepositoryInterface;
+use Dissonance\Packages\ResourcesRepositoryInterface;
+use Dissonance\Routing\RouteInterface;
 use Psr\Http\Message\ {ResponseInterface, ServerRequestInterface, StreamInterface};
 
 use function _DS\response;
@@ -31,7 +37,7 @@ class DummyClass
     {
         $actions = [
             /**
-             * @see \Dissonance\View\route()
+             * @see \Dissonance\Core\View\route()
              *  В шаблоне, если нет префикса роутера [app_id::], то будет установлен префикс текущего приложения [#APP_ID#::array]
              */
             'array' => 'Array action',
@@ -119,7 +125,7 @@ class DummyClass
 
         $mime = (new MimeTypesMini())->getMimeType($asset_file_path);
 
-        $response->withHeader('Сontent-Type', $mime);
+        $response->withHeader('Content-Type', $mime);
 
         return $response->withBody($file);
     }

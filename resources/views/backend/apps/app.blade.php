@@ -1,10 +1,10 @@
 @extends('backend/apps/layout')
 <?php
 /**
- * @var  \Dissonance\Contracts\App\ApplicationInterface $app
- * @var  \Dissonance\Contracts\Routing\RouteInterface[][] $routes
- * @var  \Dissonance\Contracts\Routing\RouteInterface[] $type
- * @var  \Dissonance\Contracts\Routing\RouteInterface $route
+ * @var  \Dissonance\Apps\ApplicationInterface $app
+ * @var  \Dissonance\Routing\RouteInterface[][] $routes
+ * @var  \Dissonance\Routing\RouteInterface[] $type
+ * @var  \Dissonance\Routing\RouteInterface $route
  */
 ?>
 <h3>{{$app->getId()}}</h3>
