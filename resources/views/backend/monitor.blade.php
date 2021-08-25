@@ -46,4 +46,11 @@
         @endforeach
     </div>
 
+    <div class="col-md-12 col-sm-12">
+        <a href="{{ route('backend:develop::monitor.json') }}" target="_blank">
+            <h3>Тайминг в апи</h3>
+        </a>
+    </div>
+
+
 </div>

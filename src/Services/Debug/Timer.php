@@ -3,7 +3,7 @@
 namespace Dissonance\Develop\Services\Debug;
 
 
-class Timer
+class Timer implements \JsonSerializable
 {
 
     protected $timers = [];
@@ -128,6 +128,11 @@ class Timer
         }
 
         return sprintf($format, $time, $unit);
+    }
+
+    public function jsonSerialize()
+    {
+       return $this->getTimers();
     }
 
 }

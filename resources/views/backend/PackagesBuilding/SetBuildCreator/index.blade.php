@@ -13,10 +13,31 @@
     <fieldset>
         <div class="row">
             <div class="col-sm-12 col-md-4">
+                <label for="packages_path">Папка для сборки</label>
+            </div>
+            <div class="col-sm-12 col-md">
+                <select name="build_path"  class="full_input" >
+                    @foreach($build_paths as $v)
+                        <option value="{{$v}}">{{$v}}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12 col-md-4">
                 <label for="packages_path">Название пакета</label>
             </div>
             <div class="col-sm-12 col-md">
-                <input type="text" name="name" class="full_input" value="build_{{time()}}">
+                <input type="text" name="package_name" class="full_input" value="build_{{time()}}">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-4">
+                <label for="packages_path">Скомпилировать в один файл<br> <small>(пока не работает)</small></label>
+            </div>
+            <div class="col-sm-12 col-md">
+                <input type="checkbox"  disabled name="single_file" value="1">
             </div>
         </div>
         <div class="row">
@@ -29,7 +50,7 @@
                         <legend><input type="checkbox" class="select_dir" value="1">{{$path}}</legend>
                         @foreach($packages as $package)
                             <label>
-                                <input type="checkbox" class="package_check" name="package[]" value="{{$package['base_path']}}">
+                                <input type="checkbox" class="package_check" name="package_dir[]" value="{{$package['base_path']}}">
                                 {{$package['name']}}
                             </label>
                             <br>

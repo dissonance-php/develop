@@ -94,8 +94,10 @@ class PackagesCreator
             for ($i = 0; $i < $count_apps; $i++) {
                 $vendor = 'dissonance_' . ($chunk + 1) . '_test';
                 $appCreator = $builder->createAppPackage($packages_path, 'test_module_' . \md5(microtime()), 'TestModule ' . $i);
+
                 $appCreator->withVendor($vendor);
                 $appCreator->withPackageConfigParam('develop_test', '1');
+                $appCreator->withDemo();
 
                 $appCreator->create();
                 if ($chunk == 30) {
@@ -188,7 +190,7 @@ class PackagesCreator
     {
 
         // TODO: ТУТ проходим по всем папкам пакетов и трем все у которых флаг в конфиге 'develop_test' => 1
-        throw new \Exception('Экшен не доделан! Позже будет сделано))))',69);
+        throw new \Exception('Экшен не доделан! Позже будет сделано))))', 69);
         event(new CacheClear('all'));
 
     }

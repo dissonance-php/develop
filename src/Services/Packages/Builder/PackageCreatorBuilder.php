@@ -52,7 +52,7 @@ class PackageCreatorBuilder
      * @param string $apps_directory
      * @param string $id
      * @param string|null $title
-     * @return AppPackageInterface
+     * @return AppPackageInterface|DissonancePackageCreator
      */
     public function createAppPackage(string $apps_directory, string $id, string $title = null)
     {

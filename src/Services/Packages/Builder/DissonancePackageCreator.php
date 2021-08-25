@@ -198,7 +198,7 @@ class DissonancePackageCreator extends StaticPackageCreator implements AppPackag
 
         $files = [
             'resources/views/demo/layout.blade.php' => 'resources/views/demo/layout.blade.php',
-            'resources/views/demo/backend.blade.php' => 'resources/views/backend/backend.blade.php',
+            'resources/views/demo/backend.blade.php' => 'resources/views/demo/backend.blade.php',
             'resources/views/demo/index.blade.php' => 'resources/views/demo/index.blade.php'
         ];
 
@@ -257,12 +257,11 @@ class DissonancePackageCreator extends StaticPackageCreator implements AppPackag
 
     protected function createApplicationClass()
     {
-        $this->dissonance_package_config['app']['app_class'] = ['\\' . $this->getBaseNamespace() . '\\MyAppContainer'];
+        $this->dissonance_package_config['app']['app_class'] = '\\' . $this->getBaseNamespace() . '\\MyAppContainer';
         $this->createClassesFiles([
             'src/Application.php' => 'src/MyAppContainer.php'
         ]);
     }
-
     protected function createAppProviders()
     {
         $this->dissonance_package_config['app']['providers'] = ['\\' . $this->getBaseNamespace() . '\\Providers\\AppProvider'];

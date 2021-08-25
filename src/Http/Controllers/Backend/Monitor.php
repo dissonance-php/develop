@@ -20,7 +20,7 @@ class Monitor
 
     public function json(Timer $timer)
     {
-        return print_r([$timer->getTimers(),'included_files' =>count(get_included_files())],true);
+        return [$timer,'included_files' =>count(get_included_files())];
     }
 
     public function phpinfo()
