@@ -1,9 +1,9 @@
 <?php
 
-namespace Dissonance\Develop\Services\Packages\Builder;
+namespace Symbiotic\Develop\Services\Packages\Builder;
 
-use Dissonance\Filesystem\Filesystem;
-use Dissonance\Packages\ResourcesRepositoryInterface;
+use Symbiotic\Filesystem\Filesystem;
+use Symbiotic\Packages\ResourcesRepositoryInterface;
 use Exception;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
@@ -15,7 +15,7 @@ use const _DS\DS;
 
 /**
  * Class StaticPackageCreator
- * @package Dissonance\Develop\Services\Packages\Builder
+ * @package Symbiotic\Develop\Services\Packages\Builder
  */
 class StaticPackageCreator implements StaticPackageInterface
 {
@@ -33,7 +33,7 @@ class StaticPackageCreator implements StaticPackageInterface
      * ДОполнительный преыфикс (подпака)
      * Например папка пакетов вендора
      * apps_directory/vendor_directory
-     * vendor/dissonance
+     * vendor/symbiotic
      * @var string
      */
     protected $vendor_path_prefix = true;
@@ -56,7 +56,7 @@ class StaticPackageCreator implements StaticPackageInterface
      * Конфиг пакета Приложения
      * @var array
      */
-    protected $dissonance_package_config = [];
+    protected $symbiotic_package_config = [];
 
     protected $framework_uri;
 
@@ -133,7 +133,7 @@ class StaticPackageCreator implements StaticPackageInterface
 
     protected function createAssets()
     {
-        $this->dissonance_package_config['public_path'] = 'assets';
+        $this->symbiotic_package_config['public_path'] = 'assets';
         $files = [
             'assets/css/app.css' => 'assets/css/app.css',
             'assets/js/app.js' => 'assets/js/app.js',
@@ -144,7 +144,7 @@ class StaticPackageCreator implements StaticPackageInterface
 
     protected function createResources()
     {
-        $this->dissonance_package_config['resources_path'] = 'resources';
+        $this->symbiotic_package_config['resources_path'] = 'resources';
         $files = [
             'resources/views/frontend/layout.blade.php' => 'resources/views/layout.blade.php',
             'resources/views/frontend/home.blade.php' => 'resources/views/home.blade.php',
@@ -158,7 +158,7 @@ class StaticPackageCreator implements StaticPackageInterface
 
     public function withPackageConfigParam(string $name, $value)
     {
-        $this->dissonance_package_config[$name] = $value;
+        $this->symbiotic_package_config[$name] = $value;
     }
 
     protected function createComposerFile()
@@ -175,18 +175,18 @@ class StaticPackageCreator implements StaticPackageInterface
             $this->withPackageName($this->packege_id);
         }
         if (empty($this->description)) {
-            $this->withDescription('Package (' . $this->title . ') for Dissonance.');
+            $this->withDescription('Package (' . $this->title . ') for Symbiotic.');
         }
 
         /**
          * @uses ComposerConfigTrait::buildComposerConfig()
          */
         $this->composerBuildBase();
-        $this->dissonance_package_config = [
+        $this->symbiotic_package_config = [
             'id' => $this->getPackegeId(),
         ];
         $this->composer['extra'] = [
-            'dissonance' => &$this->dissonance_package_config
+            'symbiotic' => &$this->symbiotic_package_config
         ];
     }
 

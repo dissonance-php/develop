@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Dissonance\Develop\Services\Packages\SetBuilder;
+namespace Symbiotic\Develop\Services\Packages\SetBuilder;
 
 
 use const _DS\DS;
@@ -10,7 +10,7 @@ use const _DS\DS;
  * За дубли кода не судите, никидываю быстро прототип
  *
  * Class Builder
- * @package Dissonance\Develop\Services\Packages\SetBuilder
+ * @package Symbiotic\Develop\Services\Packages\SetBuilder
  */
 class Builder
 {

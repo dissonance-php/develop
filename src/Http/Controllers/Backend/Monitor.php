@@ -1,11 +1,11 @@
 <?php
-namespace  Dissonance\Develop\Http\Controllers\Backend;
+namespace  Symbiotic\Develop\Http\Controllers\Backend;
 
 
 
-use Dissonance\Develop\Services\Debug\Timer;
-use Dissonance\Develop\Services\Monitoring\PackagesInfo;
-use Dissonance\Core\View\View;
+use Symbiotic\Develop\Services\Debug\Timer;
+use Symbiotic\Develop\Services\Monitoring\PackagesInfo;
+use Symbiotic\Core\View\View;
 
 class Monitor
 {

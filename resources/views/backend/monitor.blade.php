@@ -1,8 +1,8 @@
 @extends('develop::backend/layout')
 <?php
 /**
- * @var \Dissonance\Develop\Services\Monitoring\PackagesInfo $packages_monitor
- * @var \Dissonance\Develop\Services\Debug\Timer $timer
+ * @var \Symbiotic\Develop\Services\Monitoring\PackagesInfo $packages_monitor
+ * @var \Symbiotic\Develop\Services\Debug\Timer $timer
  */
 ?>
 <div class="row">

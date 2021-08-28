@@ -24,7 +24,7 @@
                 <label for="packages_path">Вендор</label>
             </div>
             <div class="col-sm-12 col-md">
-                <input type="text" name="vendor"  class="full_input"  value="dissonance">
+                <input type="text" name="vendor"  class="full_input"  value="symbiotic">
             </div>
         </div>
         <div class="row">

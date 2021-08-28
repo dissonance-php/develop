@@ -1,6 +1,6 @@
 <?php
 
-namespace Dissonance\Develop\Services\Debug;
+namespace Symbiotic\Develop\Services\Debug;
 
 
 class Timer implements \JsonSerializable

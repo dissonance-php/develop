@@ -1,11 +1,11 @@
 <?php
 
-namespace Dissonance\Develop\Debug\Routing;
+namespace Symbiotic\Develop\Debug\Routing;
 
-use Dissonance\Develop\Services\Debug\Timer;
+use Symbiotic\Develop\Services\Debug\Timer;
 
-use Dissonance\Routing\Settlement;
-use Dissonance\Routing\SettlementsInterface;
+use Symbiotic\Routing\Settlement;
+use Symbiotic\Routing\SettlementsInterface;
 
 class Settlements implements SettlementsInterface
 {

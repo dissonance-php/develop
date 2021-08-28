@@ -1,12 +1,12 @@
 <?php
 
-namespace Dissonance\Develop\Providers;
+namespace Symbiotic\Develop\Providers;
 
 
-use Dissonance\Apps\ApplicationInterface;
-use Dissonance\Core\CoreInterface;
-use Dissonance\Core\ServiceProvider;
-use Dissonance\Develop\Services\Packages\SetBuilder\Builder;
+use Symbiotic\Apps\ApplicationInterface;
+use Symbiotic\Core\CoreInterface;
+use Symbiotic\Core\ServiceProvider;
+use Symbiotic\Develop\Services\Packages\SetBuilder\Builder;
 
 class AppProvider extends ServiceProvider
 {

@@ -1,15 +1,15 @@
 <?php
 
-namespace Dissonance\Develop\Services\Packages\Builder;
+namespace Symbiotic\Develop\Services\Packages\Builder;
 
 /**
  * Trait ComposerConfigTrait
- * @package Dissonance\Develop\Services\Packages\Builder
+ * @package Symbiotic\Develop\Services\Packages\Builder
  */
 trait ComposerConfigTrait
 {
 
-    protected $vendor = 'dissonance';
+    protected $vendor = 'symbiotic';
 
     protected $package_name = '';
 

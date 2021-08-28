@@ -1,16 +1,16 @@
 <?php
 
-namespace  Dissonance\Develop\Http\Controllers\Backend;
+namespace  Symbiotic\Develop\Http\Controllers\Backend;
 
 
 
-use Dissonance\Apps\AppsRepositoryInterface;
-use Dissonance\Apps\ApplicationInterface;
-use Dissonance\Core\CoreInterface;
-use Dissonance\Routing\RouteInterface;
-use Dissonance\Routing\RouterInterface;
-use Dissonance\Develop\Services\Monitoring\PackagesInfo;
-use Dissonance\Core\View\View;
+use Symbiotic\Apps\AppsRepositoryInterface;
+use Symbiotic\Apps\ApplicationInterface;
+use Symbiotic\Core\CoreInterface;
+use Symbiotic\Routing\RouteInterface;
+use Symbiotic\Routing\RouterInterface;
+use Symbiotic\Develop\Services\Monitoring\PackagesInfo;
+use Symbiotic\Core\View\View;
 use Psr\Http\Message\ServerRequestInterface;
 
 class Apps

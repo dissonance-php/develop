@@ -1,11 +1,11 @@
 <?php
 
-namespace Dissonance\Develop\Debug\Packages;
+namespace Symbiotic\Develop\Debug\Packages;
 
-use Dissonance\Core\CoreInterface;
-use Dissonance\Develop\Services\Debug\Timer;
-use Dissonance\Packages\PackagesLoaderInterface;
-use Dissonance\Packages\PackagesRepositoryInterface;
+use Symbiotic\Core\CoreInterface;
+use Symbiotic\Develop\Services\Debug\Timer;
+use Symbiotic\Packages\PackagesLoaderInterface;
+use Symbiotic\Packages\PackagesRepositoryInterface;
 use function _DS\app;
 
 class PackagesRepository implements PackagesRepositoryInterface

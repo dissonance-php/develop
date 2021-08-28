@@ -1,7 +1,7 @@
 @extends('backend/apps/layout')
 <?php
 /**
- * @var \Dissonance\Develop\Services\Monitoring\PackagesInfo $packages
+ * @var \Symbiotic\Develop\Services\Monitoring\PackagesInfo $packages
  */
 ?>
 <table class="striped hoverable" style="max-height:inherit">

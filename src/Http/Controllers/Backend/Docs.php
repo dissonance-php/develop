@@ -1,9 +1,9 @@
 <?php
-namespace Dissonance\Develop\Http\Controllers\Backend;
+namespace Symbiotic\Develop\Http\Controllers\Backend;
 
-use Dissonance\Core\CoreInterface;
-use Dissonance\Routing\RouteInterface;
-use Dissonance\Core\View\View;
+use Symbiotic\Core\CoreInterface;
+use Symbiotic\Routing\RouteInterface;
+use Symbiotic\Core\View\View;
 use function _DS\response;
 
 

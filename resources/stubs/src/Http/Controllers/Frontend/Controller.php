@@ -2,8 +2,8 @@
 
 namespace DummyNamespace;
 
-use Dissonance\Apps\AppConfigInterface;
-use Dissonance\Core\View\View;
+use Symbiotic\Apps\AppConfigInterface;
+use Symbiotic\Core\View\View;
 
 
 class DummyClass
@@ -28,7 +28,7 @@ class DummyClass
      * @return array
      *
      * @uses \DummyNamespace\Routing::defaultRoutes()
-     * @see  \Dissonance\Routing\AppRouting::defaultRoutes()
+     * @see  \Symbiotic\Routing\AppRouting::defaultRoutes()
      */
     public function app_md5(AppConfigInterface $config)
     {

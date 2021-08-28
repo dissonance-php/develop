@@ -1,6 +1,6 @@
 <?php
 
-namespace Dissonance\Develop\Services\Packages\Builder;
+namespace Symbiotic\Develop\Services\Packages\Builder;
 
 
 class PackageCreatorBuilder
@@ -40,7 +40,7 @@ class PackageCreatorBuilder
      */
     public function createCorePackage(string $apps_directory, string $id, string $title = null)
     {
-        $package =  new DissonancePackageCreator($apps_directory, $id, $title);
+        $package =  new SymbioticPackageCreator($apps_directory, $id, $title);
         $package->withOutApp();
         $package->withBootstrap();
         $package->withCoreProviders();
@@ -52,11 +52,11 @@ class PackageCreatorBuilder
      * @param string $apps_directory
      * @param string $id
      * @param string|null $title
-     * @return AppPackageInterface|DissonancePackageCreator
+     * @return AppPackageInterface|SymbioticPackageCreator
      */
     public function createAppPackage(string $apps_directory, string $id, string $title = null)
     {
-        $package =  new DissonancePackageCreator($apps_directory, $id, $title);
+        $package =  new SymbioticPackageCreator($apps_directory, $id, $title);
 
         return $package;
     }
@@ -69,7 +69,7 @@ class PackageCreatorBuilder
      */
     public function createFrontendAppPackage(string $apps_directory, string $id, string $title = null)
     {
-        $package =  new DissonancePackageCreator($apps_directory, $id, $title);
+        $package =  new SymbioticPackageCreator($apps_directory, $id, $title);
         $package->withOutBackend();
 
         return $package;
@@ -81,7 +81,7 @@ class PackageCreatorBuilder
      * @param string $apps_directory
      * @param string $id
      * @param string|null $title
-     * @return DissonancePackageCreator
+     * @return SymbioticPackageCreator
      */
     public function createFullPackage(string $apps_directory, string $id, string $title = null)
     {

@@ -1,16 +1,16 @@
 <?php
 
-namespace Dissonance\Develop\Services\Packages\Builder;
+namespace Symbiotic\Develop\Services\Packages\Builder;
 
 use function dirname;
 use function trim;
 use const _DS\DS;
 
 /**
- * Class DissonancePackageCreator
- * @package Dissonance\Develop\Services\Packages\Builder
+ * Class SymbioticPackageCreator
+ * @package Symbiotic\Develop\Services\Packages\Builder
  */
-class DissonancePackageCreator extends StaticPackageCreator implements AppPackageInterface, CorePackageInterface
+class SymbioticPackageCreator extends StaticPackageCreator implements AppPackageInterface, CorePackageInterface
 {
 
     const NAMESPACE_STUB_KEY = 'DummyNamespace';
@@ -23,8 +23,8 @@ class DissonancePackageCreator extends StaticPackageCreator implements AppPackag
      * Базовый неймспейс
      * Пишется без начального и конечного слеша 'VendorName\PackageName'
      *
-     * @see DissonancePackageCreator::getBaseNamespace()
-     * @see DissonancePackageCreator::setBaseNamespace()
+     * @see SymbioticPackageCreator::getBaseNamespace()
+     * @see SymbioticPackageCreator::setBaseNamespace()
      * @var string|null
      */
     protected $base_namespace = null;
@@ -131,23 +131,23 @@ class DissonancePackageCreator extends StaticPackageCreator implements AppPackag
     {
         if ($this->with_app) {
             /**
-             * "routing": "\\Dissonance\\App\\Filesmanager\\Routing",
-             * "controllers_namespace": "\\Dissonance\\App\\Filesmanager\\Controllers",
+             * "routing": "\\Symbiotic\\App\\Filesmanager\\Routing",
+             * "controllers_namespace": "\\Symbiotic\\App\\Filesmanager\\Controllers",
              * "version": "1.0.0",
              * "requires": [],
              * "providers": [
-             * "\\Dissonance\\App\\Filesmanager\\Providers\\AppProvider"
+             * "\\Symbiotic\\App\\Filesmanager\\Providers\\AppProvider"
              * ]
              */
-            $this->dissonance_package_config['app'] = [
+            $this->symbiotic_package_config['app'] = [
                 'id' => $this->packege_id,
             ];
             if ($this->parent_app_id) {
-                $this->dissonance_package_config['app']['parent_app'] = $this->parent_app_id;
+                $this->symbiotic_package_config['app']['parent_app'] = $this->parent_app_id;
             }
             $this->createAssets();
             if ($this->with_app_controllers) {
-                $this->dissonance_package_config['app']['controllers_namespace'] = '\\' . $this->getBaseNamespace() . '\\Http\\Controllers';
+                $this->symbiotic_package_config['app']['controllers_namespace'] = '\\' . $this->getBaseNamespace() . '\\Http\\Controllers';
                 if ($this->with_app_frontend_controllers) {
                     $this->createFrontendControllers();
                 }
@@ -248,7 +248,7 @@ class DissonancePackageCreator extends StaticPackageCreator implements AppPackag
 
     protected function createBootstrap()
     {
-        $this->dissonance_package_config['bootstrappers'] = ['\\' . $this->getBaseNamespace() . '\\Bootstrap\\Bootstrap'];
+        $this->symbiotic_package_config['bootstrappers'] = ['\\' . $this->getBaseNamespace() . '\\Bootstrap\\Bootstrap'];
         $this->createClassesFiles([
             'src/Bootstrap/Bootstrap' . $this->getDemoString() . '.php' => 'src/Bootstrap/Bootstrap.php'
         ]);
@@ -257,14 +257,14 @@ class DissonancePackageCreator extends StaticPackageCreator implements AppPackag
 
     protected function createApplicationClass()
     {
-        $this->dissonance_package_config['app']['app_class'] = '\\' . $this->getBaseNamespace() . '\\MyAppContainer';
+        $this->symbiotic_package_config['app']['app_class'] = '\\' . $this->getBaseNamespace() . '\\MyAppContainer';
         $this->createClassesFiles([
             'src/Application.php' => 'src/MyAppContainer.php'
         ]);
     }
     protected function createAppProviders()
     {
-        $this->dissonance_package_config['app']['providers'] = ['\\' . $this->getBaseNamespace() . '\\Providers\\AppProvider'];
+        $this->symbiotic_package_config['app']['providers'] = ['\\' . $this->getBaseNamespace() . '\\Providers\\AppProvider'];
         $this->createClassesFiles([
             'src/Providers/AppProvider' . $this->getDemoString() . '.php' => 'src/Providers/AppProvider.php'
         ]);
@@ -272,7 +272,7 @@ class DissonancePackageCreator extends StaticPackageCreator implements AppPackag
 
     protected function createAppRouting()
     {
-        $this->dissonance_package_config['app']['routing'] = '\\' . $this->getBaseNamespace() . '\\Routing';
+        $this->symbiotic_package_config['app']['routing'] = '\\' . $this->getBaseNamespace() . '\\Routing';
         $this->createClassesFiles([
             'src/Routing' . $this->getDemoString() . '.php' => 'src/Routing.php'
         ]);
@@ -280,7 +280,7 @@ class DissonancePackageCreator extends StaticPackageCreator implements AppPackag
 
     protected function createCoreProvider()
     {
-        $this->dissonance_package_config['providers'] = ['\\' . $this->getBaseNamespace() . '\\Providers\\CoreProvider'];
+        $this->symbiotic_package_config['providers'] = ['\\' . $this->getBaseNamespace() . '\\Providers\\CoreProvider'];
         $this->createClassesFiles([
             'src/Providers/CoreProvider' . $this->getDemoString() . '.php' => 'src/Providers/CoreProvider.php'
         ]);
@@ -315,7 +315,7 @@ class DissonancePackageCreator extends StaticPackageCreator implements AppPackag
     protected function getBaseNamespace(): string
     {
         if (!$this->base_namespace) {
-            $this->base_namespace = 'Dissonance\\Module\\' . \ucfirst(\strtolower($this->packege_id));
+            $this->base_namespace = 'Symbiotic\\Module\\' . \ucfirst(\strtolower($this->packege_id));
         }
 
         return $this->base_namespace;

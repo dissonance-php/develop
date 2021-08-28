@@ -1,8 +1,8 @@
 <?php
 
-namespace Dissonance\Develop\Services\Monitoring;
+namespace Symbiotic\Develop\Services\Monitoring;
 
-use Dissonance\Core\CoreInterface;
+use Symbiotic\Core\CoreInterface;
 
 class Core implements CoreInterface {
 

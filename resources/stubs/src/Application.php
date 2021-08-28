@@ -3,11 +3,11 @@
 
 namespace DummyPackageNamespace;
 
-use Dissonance\Apps\Application;
-use Dissonance\Apps\AppsRepositoryInterface;
-use Dissonance\Container\ContainerTrait;
-use Dissonance\Container\SubContainerTrait;
-use Dissonance\Apps\ApplicationInterface;
+use Symbiotic\Apps\Application;
+use Symbiotic\Apps\AppsRepositoryInterface;
+use Symbiotic\Container\ContainerTrait;
+use Symbiotic\Container\SubContainerTrait;
+use Symbiotic\Apps\ApplicationInterface;
 
 
 class DummyClass extends Application implements ApplicationInterface

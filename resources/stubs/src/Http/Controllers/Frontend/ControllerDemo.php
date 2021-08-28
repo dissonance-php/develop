@@ -3,15 +3,15 @@
 namespace DummyNamespace;
 
 
-use Dissonance\Apps\AppConfigInterface;
-use Dissonance\Apps\ApplicationInterface;
-use Dissonance\Core\CoreInterface;
-use Dissonance\Core\View\View;
-use Dissonance\Http\DownloadResponse;
-use Dissonance\Mimetypes\MimeTypesMini;
-use Dissonance\Packages\AssetsRepositoryInterface;
-use Dissonance\Packages\ResourcesRepositoryInterface;
-use Dissonance\Routing\RouteInterface;
+use Symbiotic\Apps\AppConfigInterface;
+use Symbiotic\Apps\ApplicationInterface;
+use Symbiotic\Core\CoreInterface;
+use Symbiotic\Core\View\View;
+use Symbiotic\Http\DownloadResponse;
+use Symbiotic\Mimetypes\MimeTypesMini;
+use Symbiotic\Packages\AssetsRepositoryInterface;
+use Symbiotic\Packages\ResourcesRepositoryInterface;
+use Symbiotic\Routing\RouteInterface;
 use Psr\Http\Message\ {ResponseInterface, ServerRequestInterface, StreamInterface};
 
 use function _DS\response;
@@ -31,13 +31,13 @@ class DummyClass
      * @return View
      *
      * @uses \DummyPackageNamespace\Routing::frontendRoutes()
-     * @see  \Dissonance\Routing\AppRouting::frontendRoutes()
+     * @see  \Symbiotic\Routing\AppRouting::frontendRoutes()
      */
     public function index(ApplicationInterface $app)
     {
         $actions = [
             /**
-             * @see \Dissonance\Core\View\route()
+             * @see \Symbiotic\Core\View\route()
              *  В шаблоне, если нет префикса роутера [app_id::], то будет установлен префикс текущего приложения [#APP_ID#::array]
              */
             'array' => 'Array action',
@@ -75,7 +75,7 @@ class DummyClass
      * @return array
      *
      * @uses \DummyNamespace\Routing::frontendRoutes()
-     * @see  \Dissonance\Routing\AppRouting::frontendRoutes()
+     * @see  \Symbiotic\Routing\AppRouting::frontendRoutes()
      */
     public function array(ApplicationInterface $app, RouteInterface $route)
     {
@@ -108,7 +108,7 @@ class DummyClass
      * @return ResponseInterface
      *
      * @uses \DummyNamespace\Routing::frontendRoutes()
-     * @see  \Dissonance\Routing\AppRouting::frontendRoutes()
+     * @see  \Symbiotic\Routing\AppRouting::frontendRoutes()
      */
     public function file(ResponseInterface $response, ApplicationInterface $app)
     {
@@ -160,7 +160,7 @@ class DummyClass
      * @return ResponseInterface
      *
      * @uses \DummyNamespace\Routing::frontendRoutes()
-     * @see  \Dissonance\Routing\AppRouting::frontendRoutes()
+     * @see  \Symbiotic\Routing\AppRouting::frontendRoutes()
      */
     public function download(ApplicationInterface $app)
     {
@@ -187,7 +187,7 @@ class DummyClass
      * @return ResponseInterface
      *
      * @uses \DummyNamespace\Routing::frontendRoutes()
-     * @see  \Dissonance\Routing\AppRouting::frontendRoutes()
+     * @see  \Symbiotic\Routing\AppRouting::frontendRoutes()
      */
     public function error404()
     {
@@ -206,7 +206,7 @@ class DummyClass
      * @return array
      *
      * @uses \DummyNamespace\Routing::defaultRoutes()
-     * @see  \Dissonance\Routing\AppRouting::defaultRoutes()
+     * @see  \Symbiotic\Routing\AppRouting::defaultRoutes()
      */
     public function app_md5(AppConfigInterface $config)
     {

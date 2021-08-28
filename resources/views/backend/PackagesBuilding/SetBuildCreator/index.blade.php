@@ -1,7 +1,7 @@
 @extends('backend/PackagesBuilding/layout')
 <?php
 /**
- * @var \Dissonance\Develop\Services\Packages\SetBuilder\Builder $builder
+ * @var \Symbiotic\Develop\Services\Packages\SetBuilder\Builder $builder
  */
 ?>
 <style>

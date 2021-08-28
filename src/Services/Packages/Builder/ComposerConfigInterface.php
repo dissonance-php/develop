@@ -1,6 +1,6 @@
 <?php
 
-namespace Dissonance\Develop\Services\Packages\Builder;
+namespace Symbiotic\Develop\Services\Packages\Builder;
 
 interface  ComposerConfigInterface
 {

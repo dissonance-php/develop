@@ -4,8 +4,8 @@
 namespace DummyPackageNamespace;
 
 
-use Dissonance\Routing\RouterInterface;
-use Dissonance\Routing\AppRouting;
+use Symbiotic\Routing\RouterInterface;
+use Symbiotic\Routing\AppRouting;
 
 
 class DummyClass extends AppRouting
@@ -23,23 +23,27 @@ class DummyClass extends AppRouting
      */
     public function backendRoutes(RouterInterface $router)
     {
-          /**
-            * @uri /framework_root/backend/#APP_ID#/ - корневой екшен приложения
-            * @uses \DummyPackageNamespace\Http\Controllers\Backend\Index::index()
-            */
-           $router->get('/', [
-               'uses' => 'Backend\\Index@index',
-               'as' => 'index'
-           ]);
+        /**
+         * @uri /framework_root/backend/#APP_ID#/ - корневой екшен приложения
+         * @uses \DummyPackageNamespace\Http\Controllers\Backend\Index::index()
+         */
+        $router->get('/', [
+            'uses' => 'Backend\\Index@index',
+            'as' => 'index'
+        ]);
+        $router->get('/home', [
+            'uses' => 'Backend\\Index@index',
+            'as' => 'home'
+        ]);
 
-           /**
-            * @uri /framework_root/backend/#APP_ID#/test/
-            * @uses \DummyPackageNamespace\Http\Controllers\Backend\Index::test()
-            */
-           $router->get('/test', [
-               'uses' => 'Backend\\Index@test',
-               'as' => 'test'
-           ]);
+        /**
+         * @uri /framework_root/backend/#APP_ID#/test/
+         * @uses \DummyPackageNamespace\Http\Controllers\Backend\Index::test()
+         */
+        $router->get('/test', [
+            'uses' => 'Backend\\Index@test',
+            'as' => 'test'
+        ]);
     }
 
     /**
@@ -66,7 +70,6 @@ class DummyClass extends AppRouting
 
     /**
      * Работают в корне фремворка /framework_root/
-
      * для поиска роута по имени route('default::#APP_ID#.route_name') {@see \_DS\route()}
      *
      * @param RouterInterface $router
@@ -80,7 +83,7 @@ class DummyClass extends AppRouting
          *
          * @uses \DummyPackageNamespace\Http\Controllers\Frontend\Index::app_md5()
          */
-        $router->get('default_'.$this->getAppId(), [
+        $router->get('default_' . $this->getAppId(), [
             'uses' => 'Frontend\\Index@app_md5',
             'as' => 'md5_route',
         ]);

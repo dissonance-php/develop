@@ -1,15 +1,15 @@
 <?php
 
-namespace Dissonance\Develop\Http\Controllers\Backend\PackagesBuilding;
+namespace Symbiotic\Develop\Http\Controllers\Backend\PackagesBuilding;
 
 
-use Dissonance\Apps\ApplicationInterface;
-use Dissonance\Core\CoreInterface;
-use Dissonance\Develop\Services\Packages\Builder\PackageCreatorBuilder;
+use Symbiotic\Apps\ApplicationInterface;
+use Symbiotic\Core\CoreInterface;
+use Symbiotic\Develop\Services\Packages\Builder\PackageCreatorBuilder;
 
-use Dissonance\Http\ServerRequest;
-use Dissonance\Core\Events\CacheClear;
-use Dissonance\Core\View\View;
+use Symbiotic\Http\ServerRequest;
+use Symbiotic\Core\Events\CacheClear;
+use Symbiotic\Core\View\View;
 
 use function _DS\config;
 use function _DS\event;
@@ -92,7 +92,7 @@ class PackagesCreator
         if ($count_apps > 0) {
             $chunk = 0;
             for ($i = 0; $i < $count_apps; $i++) {
-                $vendor = 'dissonance_' . ($chunk + 1) . '_test';
+                $vendor = 'symbiotic_' . ($chunk + 1) . '_test';
                 $appCreator = $builder->createAppPackage($packages_path, 'test_module_' . \md5(microtime()), 'TestModule ' . $i);
 
                 $appCreator->withVendor($vendor);
@@ -112,7 +112,7 @@ class PackagesCreator
         if ($count_bootstraps > 0) {
             $chunk = 0;
             for ($i = 0; $i < $count_bootstraps; $i++) {
-                $vendor = 'dissonance_' . ($chunk + 1) . '_test';
+                $vendor = 'symbiotic_' . ($chunk + 1) . '_test';
                 // Создаем пакет для нагрузки ядра
                 $appCreator = $builder->createFullPackage($packages_path, 'test_core_' . \md5(microtime()), 'CoreModule ' . $i);
                 $appCreator->withVendor($vendor);
@@ -132,7 +132,7 @@ class PackagesCreator
         if ($count_core_providers > 0) {
             $chunk = 0;
             for ($i = 0; $i < $count_core_providers; $i++) {
-                $vendor = 'dissonance_' . ($chunk + 1) . '_test';
+                $vendor = 'symbiotic_' . ($chunk + 1) . '_test';
                 // Создаем пакет для нагрузки ядра
                 $appCreator = $builder->createFullPackage($packages_path, 'test_core_' . \md5(microtime()), 'CoreModule ' . $i);
                 $appCreator->withVendor($vendor);

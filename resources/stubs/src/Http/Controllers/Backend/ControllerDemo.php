@@ -2,7 +2,7 @@
 
 namespace DummyNamespace;
 
-use Dissonance\Core\View\View;
+use Symbiotic\Core\View\View;
 
 
 class DummyClass

@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Dissonance\Develop\Debug\HttpKernel;
+namespace Symbiotic\Develop\Debug\HttpKernel;
 
 
-use Dissonance\Develop\Services\Debug\Timer;
+use Symbiotic\Develop\Services\Debug\Timer;
 use Psr\Http\Message\ {ResponseInterface, ServerRequestInterface};
 use Psr\Http\Server\RequestHandlerInterface;
 

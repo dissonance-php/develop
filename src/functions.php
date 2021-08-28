@@ -1,6 +1,6 @@
 <?php
 
-namespace Dissonance\Develop;
+namespace Symbiotic\Develop;
 
 
 

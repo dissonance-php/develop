@@ -1,9 +1,9 @@
 <?php
 
-namespace Dissonance\Develop\Services\Monitoring;
+namespace Symbiotic\Develop\Services\Monitoring;
 
 
-use Dissonance\Packages\PackagesRepositoryInterface;
+use Symbiotic\Packages\PackagesRepositoryInterface;
 
 class PackagesInfo
 {

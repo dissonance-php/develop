@@ -1,10 +1,10 @@
 <?php
-namespace  Dissonance\Develop\Http\Controllers\Backend;
+namespace  Symbiotic\Develop\Http\Controllers\Backend;
 
 
-use Dissonance\Apps\ApplicationInterface;
-use Dissonance\Core\Events\CacheClear;
-use Dissonance\Core\View\View;
+use Symbiotic\Apps\ApplicationInterface;
+use Symbiotic\Core\Events\CacheClear;
+use Symbiotic\Core\View\View;
 use function _DS\event;
 
 class Index

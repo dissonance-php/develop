@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Dissonance\Develop;
+namespace Symbiotic\Develop;
 
 
-use Dissonance\Routing\RouterInterface;
-use Dissonance\Routing\AppRouting;
+use Symbiotic\Routing\RouterInterface;
+use Symbiotic\Routing\AppRouting;
 
 
 class Routing extends AppRouting

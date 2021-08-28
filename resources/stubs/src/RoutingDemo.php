@@ -4,8 +4,8 @@
 namespace DummyPackageNamespace;
 
 
-use Dissonance\Routing\RouterInterface;
-use Dissonance\Routing\AppRouting;
+use Symbiotic\Routing\RouterInterface;
+use Symbiotic\Routing\AppRouting;
 
 
 class DummyClass extends AppRouting
@@ -30,6 +30,10 @@ class DummyClass extends AppRouting
         $router->get('/', [
             'uses' => 'Backend\\Index@index',
             'as' => 'index'
+        ]);
+        $router->get('/home', [
+            'uses' => 'Backend\\Index@index',
+            'as' => 'home'
         ]);
 
         /**

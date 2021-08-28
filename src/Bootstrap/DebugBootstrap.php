@@ -1,24 +1,24 @@
 <?php
 
 
-namespace Dissonance\Develop\Bootstrap;
+namespace Symbiotic\Develop\Bootstrap;
 
 
-use Dissonance\Core\BootstrapInterface;
-use Dissonance\Core\CoreInterface;
-use Dissonance\Core\HttpKernelInterface;
-use Dissonance\Develop\Debug\HttpKernel\HttpKernel;
-use Dissonance\Develop\Debug\HttpKernel\RequestHandler;
-use Dissonance\Develop\Debug\Routing\Router;
-use Dissonance\Develop\Debug\Routing\Settlements;
-use Dissonance\Develop\Services\Debug\Timer;
-use Dissonance\Develop\Debug\Packages\PackagesRepository;
-use Dissonance\Http\Kernel\RouteHandler;
-use Dissonance\Http\Kernel\RoutingHandler;
-use Dissonance\Packages\PackagesRepositoryInterface;
-use Dissonance\Routing\RouterInterface;
-use Dissonance\Routing\SettlementsInterface;
-use Dissonance\Routing\SettlementsRouter;
+use Symbiotic\Core\BootstrapInterface;
+use Symbiotic\Core\CoreInterface;
+use Symbiotic\Core\HttpKernelInterface;
+use Symbiotic\Develop\Debug\HttpKernel\HttpKernel;
+use Symbiotic\Develop\Debug\HttpKernel\RequestHandler;
+use Symbiotic\Develop\Debug\Routing\Router;
+use Symbiotic\Develop\Debug\Routing\Settlements;
+use Symbiotic\Develop\Services\Debug\Timer;
+use Symbiotic\Develop\Debug\Packages\PackagesRepository;
+use Symbiotic\Http\Kernel\RouteHandler;
+use Symbiotic\Http\Kernel\RoutingHandler;
+use Symbiotic\Packages\PackagesRepositoryInterface;
+use Symbiotic\Routing\RouterInterface;
+use Symbiotic\Routing\SettlementsInterface;
+use Symbiotic\Routing\SettlementsRouter;
 use function _DS\config;
 
 

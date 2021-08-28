@@ -1,16 +1,16 @@
 <?php
 
-namespace  Dissonance\Develop\Http\Controllers\Backend\PackagesBuilding;
+namespace  Symbiotic\Develop\Http\Controllers\Backend\PackagesBuilding;
 
 
-use Dissonance\Apps\ApplicationInterface;
-use Dissonance\Core\CoreInterface;
-use Dissonance\Develop\Services\Packages\PackageCreatorBuilder;
+use Symbiotic\Apps\ApplicationInterface;
+use Symbiotic\Core\CoreInterface;
+use Symbiotic\Develop\Services\Packages\PackageCreatorBuilder;
 
-use Dissonance\Develop\Services\Packages\SetBuilder\Builder;
-use Dissonance\Http\ServerRequest;
-use Dissonance\Core\Events\CacheClear;
-use Dissonance\Core\View\View;
+use Symbiotic\Develop\Services\Packages\SetBuilder\Builder;
+use Symbiotic\Http\ServerRequest;
+use Symbiotic\Core\Events\CacheClear;
+use Symbiotic\Core\View\View;
 
 use function _DS\config;
 use function _DS\event;

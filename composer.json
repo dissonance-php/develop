@@ -1,30 +1,30 @@
 {
-  "name": "dissonance/develop",
+  "name": "symbiotic/develop",
   "require": {
     "php": ">=7.2",
-    "dissonance/ui_backend": "1.*"
+    "symbiotic/ui_backend": "1.*"
   },
   "license": "MIT",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "autoload": {
     "psr-4": {
-      "Dissonance\\Develop\\": "src/"
+      "Symbiotic\\Develop\\": "src/"
     },
     "files": [
       "src/functions.php"
     ]
   },
   "extra": {
-    "dissonance": {
+    "symbiotic": {
       "id": "develop",
       "app": {
         "id": "develop",
         "name": "Develop",
-        "routing": "\\Dissonance\\Develop\\Routing",
-        "controllers_namespace": "\\Dissonance\\Develop\\Http\\Controllers",
+        "routing": "\\Symbiotic\\Develop\\Routing",
+        "controllers_namespace": "\\Symbiotic\\Develop\\Http\\Controllers",
         "version": "1.0.0",
         "providers": [
-          "\\Dissonance\\Develop\\Providers\\AppProvider"
+          "\\Symbiotic\\Develop\\Providers\\AppProvider"
         ],
         "requires": []
       }
