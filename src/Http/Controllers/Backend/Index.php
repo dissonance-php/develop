@@ -12,7 +12,7 @@ class Index
 
     public function index(ApplicationInterface $app)
     {
-        $meta_title = $app->getAppTitle();
+        $meta_title = $app->getAppName();
         return View::make('backend/index',
             compact([
                 'meta_title'

@@ -25,7 +25,7 @@
         </div>
         <div class="col-sm-12 col-md-10">
             <div class="row">
-               <h1>{{app()->getAppTitle()}}</h1>
+               <h1>{{app()->getAppName()}}</h1>
             </div>
             <div class="section double-padded">
                 <div id="controller-content">@yield('content')</div>

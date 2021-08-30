@@ -83,7 +83,7 @@
     </div>
     <div class="row">
         <div class="col-sm-3 col-md-3"><b>Title:</b></div>
-        <div class="col-sm-9 col-md-9">"{{$app->getAppTitle()}}"</div>
+        <div class="col-sm-9 col-md-9">"{{$app->getAppName()}}"</div>
     </div>
     <div class="row">
         <div class="col-sm-3 col-md-3"><b>Parent app:</b></div>

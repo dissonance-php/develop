@@ -83,7 +83,7 @@ class DummyClass
             'app' => [
                 'id' => $app->getId(),
                 'name' => $app->getAppName(),
-                'title' => $app->getAppTitle(),
+                'title' => $app->getAppName(),
                 'parent_app' => $app->getParentAppId()
 
             ],
@@ -232,7 +232,7 @@ class DummyClass
 
     public function config(AppConfigInterface $app_config)
     {
-        return $app_config->getAppTitle();
+        return $app_config->getAppName();
     }
 
     public function request(ServerRequestInterface $request)
