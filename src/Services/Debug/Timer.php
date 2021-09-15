@@ -37,7 +37,7 @@ class Timer implements \JsonSerializable
     {
         if (!isset($this->timers[$name]))
         {
-            throw new \LogicException("Сначала запуститте таймер start('$name')");
+            $this->timers[$name] = [];
         }
         if(isset($this->timers[$name]['end'])) {
             return $this;

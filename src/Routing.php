@@ -17,20 +17,16 @@ class Routing extends AppRouting
         $router->group([ 'namespace' => 'Backend'], function(RouterInterface $router){
             $router->get('/timer/', [
                 'uses' => 'Monitor@json',
-                'as' => 'monitor.json',
-                'secure' => false
+                'as' => 'monitor.json'
             ]);
             $router->get('/phpinfo/', [
                 'uses' => 'Monitor@phpinfo',
-                'as' => 'monitor.phpinfo',
-                'secure' => false
+                'as' => 'monitor.phpinfo'
             ]);
             $router->get('/cache/clean/', [
                 'uses' => 'Index@cache_clean',
-                'as' => 'cache.clean',
-                'secure' => false
+                'as' => 'cache.clean'
             ]);
-
 
             $router->group(['prefix' => '/apps', 'as' => 'apps'], function(RouterInterface $router){
                 $router->get('{app_id}/routes', [

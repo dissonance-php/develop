@@ -2,6 +2,7 @@
 
 namespace Symbiotic\Develop\Services\Packages\Builder;
 
+use Symbiotic\Core\Support\Str;
 use function dirname;
 use function trim;
 use const _DS\DS;
@@ -315,7 +316,7 @@ class SymbioticPackageCreator extends StaticPackageCreator implements AppPackage
     protected function getBaseNamespace(): string
     {
         if (!$this->base_namespace) {
-            $this->base_namespace = 'Symbiotic\\Module\\' . \ucfirst(\strtolower($this->packege_id));
+            $this->base_namespace = 'Symbiotic\\Module\\' . \ucfirst(Str::camel($this->packege_id));
         }
 
         return $this->base_namespace;

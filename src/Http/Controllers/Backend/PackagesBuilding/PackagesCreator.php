@@ -5,6 +5,7 @@ namespace Symbiotic\Develop\Http\Controllers\Backend\PackagesBuilding;
 
 use Symbiotic\Apps\ApplicationInterface;
 use Symbiotic\Core\CoreInterface;
+use Symbiotic\Core\Support\Str;
 use Symbiotic\Develop\Services\Packages\Builder\PackageCreatorBuilder;
 
 use Symbiotic\Http\ServerRequest;
@@ -41,15 +42,22 @@ class PackagesCreator
         if (!is_dir($packages_path) || !is_writable($packages_path)) {
             throw  new \Exception('Директория приложений не существует или не доступная для записи [' . $packages_path . ']!');
         }
+
         $vendor = $request->getInput('vendor');
         $package_name = $request->getInput('package_name');
         $name = $request->getInput('name');
+
         $package = $builder->createAppPackage(
             $packages_path,
             \strtolower($package_name),
             $name
         );
+
         $package->withVendor($vendor);
+
+        if($vendor !== 'symbiotic') {
+            $package->setBaseNamespace(ucfirst(Str::camel($vendor)).'\\'.ucfirst(Str::camel($package_name)));
+        }
         $package->withPackageName($package_name);
 
         if (!empty($request->getInput('with_demo'))) {
