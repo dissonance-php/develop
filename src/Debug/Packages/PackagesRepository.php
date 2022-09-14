@@ -2,37 +2,29 @@
 
 namespace Symbiotic\Develop\Debug\Packages;
 
-use Symbiotic\Core\CoreInterface;
+use Psr\Container\ContainerInterface;
+use Symbiotic\Container\CloningContainer;
 use Symbiotic\Develop\Services\Debug\Timer;
 use Symbiotic\Packages\PackageConfig;
 use Symbiotic\Packages\PackagesLoaderInterface;
 use Symbiotic\Packages\PackagesRepositoryInterface;
-use function _S\core;
 
-class PackagesRepository implements PackagesRepositoryInterface
+
+class PackagesRepository implements PackagesRepositoryInterface, CloningContainer
 {
 
-    /**
-     * @var PackagesRepositoryInterface
-     */
-    protected $object;
 
-    /**
-     * @var Timer
-     */
-    protected $timer;
-
-
-    public function __construct(PackagesRepositoryInterface $packages)
-    {
-        $this->object = $packages;
+    public function __construct(
+        protected PackagesRepositoryInterface $object,
+        protected ContainerInterface $container
+    ) {
     }
 
     public function load(): void
     {
-        core(Timer::class)->start('load_packages');
+        $this->container->get(Timer::class)->start('load_packages');
         $this->call(__FUNCTION__, func_get_args());
-        core(Timer::class)->end('load_packages');
+        $this->container->get(Timer::class)->end('load_packages');
     }
 
     public function has($id): bool
@@ -45,16 +37,16 @@ class PackagesRepository implements PackagesRepositoryInterface
         return $this->call(__FUNCTION__, func_get_args());
     }
 
-    public function getPackageConfig(string $id):?PackageConfig
+    public function getPackageConfig(string $id): ?PackageConfig
     {
         return $this->call(__FUNCTION__, func_get_args());
     }
 
     public function getIds(): array
     {
-        $name =  core(Timer::class)->start();
+        $name = $this->container->get(Timer::class)->start();
         $data = $this->call(__FUNCTION__, func_get_args());
-        core(Timer::class)->end($name);
+        $this->container->get(Timer::class)->end($name);
         return $data;
     }
 
@@ -71,9 +63,9 @@ class PackagesRepository implements PackagesRepositoryInterface
 
     public function all(): array
     {
-      $name =  core(Timer::class)->start();
+        $name = $this->container->get(Timer::class)->start();
         $data = $this->call(__FUNCTION__, func_get_args());
-        core(Timer::class)->end($name);
+        $this->container->get(Timer::class)->end($name);
         return $data;
     }
 
@@ -90,6 +82,15 @@ class PackagesRepository implements PackagesRepositoryInterface
     protected function call($method, $parameters)
     {
         return call_user_func_array([$this->object, $method], $parameters);
+    }
+
+    public function cloneInstance(?ContainerInterface $container): ?object
+    {
+        $this->container = $container;
+        if ($this->object instanceof CloningContainer) {
+            $this->object = $this->object->cloneInstance($container);
+        }
+        return null;
     }
 
 }

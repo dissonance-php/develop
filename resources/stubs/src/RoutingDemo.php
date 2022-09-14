@@ -4,11 +4,12 @@
 namespace DummyPackageNamespace;
 
 
+use Symbiotic\Develop\Services\Routing\FakeRoutes;
 use Symbiotic\Routing\RouterInterface;
 use Symbiotic\Routing\AppRouting;
 
 
-class DummyClass extends AppRouting
+class DummyClass extends  FakeRoutes/*AppRouting*/
 {
 
     /**
@@ -23,6 +24,7 @@ class DummyClass extends AppRouting
      */
     public function backendRoutes(RouterInterface $router): void
     {
+        parent::backendRoutes($router);
         /**
          * @uri  /framework_root/backend/#APP_ID#/ - корневой екшен приложения
          * @uses \DummyPackageNamespace\Http\Controllers\Backend\Index::index()
@@ -61,6 +63,8 @@ class DummyClass extends AppRouting
      */
     public function frontendRoutes(RouterInterface $router): void
     {
+        parent::frontendRoutes($router);
+
         /**
          * @link #FRAMEWORK_ROOT_URI#/#APP_ID#/
          * @uri  /framework_root/#APP_ID#/ - корневой екшен приложения
@@ -121,6 +125,7 @@ class DummyClass extends AppRouting
      */
     public function defaultRoutes(RouterInterface $router): void
     {
+        parent::defaultRoutes($router);
         /**
          * @link #FRAMEWORK_ROOT_URI#/default_#APP_ID#/ - md5 кривой, но
          * @uri  /framework_root/default_#APP_ID#/ роут от корня фреймоворка

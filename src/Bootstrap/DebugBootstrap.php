@@ -21,6 +21,7 @@ use Symbiotic\Packages\PackagesRepositoryInterface;
 use Symbiotic\Routing\RouterInterface;
 use Symbiotic\Routing\SettlementsInterface;
 use Symbiotic\Routing\SettlementsRouter;
+
 use function _S\config;
 
 
@@ -29,31 +30,40 @@ class DebugBootstrap implements BootstrapInterface
 
     public function bootstrap(DIContainerInterface $core): void
     {
-
         if ($core('config::debug')) {
-            $core->instance(Timer::class, new Timer());
-            $core[Timer::class]->start('All');
-            if (!$core->bound(PackagesRepositoryInterface::class)) {
-                $core->extend(PackagesRepositoryInterface::class, function (PackagesRepositoryInterface $object) {
-                    return new PackagesRepository($object);
+            if (!$core->bound(Timer::class)) {
+                $core->live(Timer::class, function ($app) {
+                    $timer = new Timer();
+                    $timer->start('All');
+                    return $timer;
                 });
+                $core[Timer::class];
             }
 
-            $core->extend(HttpKernelInterface::class, function (HttpKernelInterface $object) use ($core) {
-                return new HttpKernel($object, $core[Timer::class]);
+            if (!$core->bound(PackagesRepositoryInterface::class)) {
+                $core->extend(
+                    PackagesRepositoryInterface::class,
+                    function (PackagesRepositoryInterface $object, CoreInterface $core) {
+                        return new PackagesRepository($object, $core);
+                    }
+                );
+            }
+
+            $core->extend(HttpKernelInterface::class, function (HttpKernelInterface $object, CoreInterface $core) {
+                return new HttpKernel($object, $core);
             });
-            $core->extend(SettlementsRouter::class, function (RouterInterface $object) use ($core) {
-                return new Router($object, $core[Timer::class]);
+            $core->extend(SettlementsRouter::class, function (RouterInterface $object, CoreInterface $core) {
+                return new Router($object, $core);
             });
-            $core->extend(SettlementsInterface::class, function (SettlementsInterface $object) use ($core) {
-                return new Settlements($object, $core[Timer::class]);
+            $core->extend(SettlementsInterface::class, function (SettlementsInterface $object, CoreInterface $core) {
+                return new Settlements($object, $core);
             });
 
-            $core->extend(RoutingHandler::class, function (RequestHandlerInterface $object) use ($core) {
-                return new RequestHandler($object, $core[Timer::class]);
+            $core->extend(RoutingHandler::class, function (RequestHandlerInterface $object, CoreInterface $core) {
+                return new RequestHandler($object, $core);
             });
-            $core->extend(RouteHandler::class, function (RequestHandlerInterface $object) use ($core) {
-                return new RequestHandler($object, $core[Timer::class]);
+            $core->extend(RouteHandler::class, function (RequestHandlerInterface $object, CoreInterface $core) {
+                return new RequestHandler($object, $core);
             });
         }
     }

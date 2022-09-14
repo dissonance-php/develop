@@ -2,28 +2,17 @@
 
 namespace Symbiotic\Develop\Debug\Routing;
 
+use Psr\Container\ContainerInterface;
+use Symbiotic\Container\CloningContainer;
 use Symbiotic\Develop\Services\Debug\Timer;
 use Symbiotic\Routing\RouteInterface;
 use Symbiotic\Routing\RouterInterface;
 
-class Router implements RouterInterface
+class Router implements RouterInterface, CloningContainer
 {
 
-    /**
-     * @var RouterInterface
-     */
-    protected $object;
-
-    /**
-     * @var Timer
-     */
-    protected $timer;
-
-
-    public function __construct(RouterInterface $object, Timer $timer)
+    public function __construct(protected RouterInterface $object, protected ContainerInterface $container)
     {
-        $this->object = $object;
-        $this->timer = $timer;
     }
 
     public function setRoutesDomain(string $domain): void
@@ -78,9 +67,9 @@ class Router implements RouterInterface
 
     public function getByNamePrefix(string $name): array
     {
-        $name = $this->timer->start();
+        $name = $this->container[Timer::class]->start();
         $data = $this->call(__FUNCTION__, func_get_args());
-        $this->timer->end($name);
+        $this->container[Timer::class]->end($name);
 
         return $data;
     }
@@ -92,9 +81,9 @@ class Router implements RouterInterface
 
     public function match(string $httpMethod, string $uri): ?RouteInterface
     {
-        $name = $this->timer->start();
+        $name = $this->container[Timer::class]->start();
         $data = $this->call(__FUNCTION__, func_get_args());
-        $this->timer->end($name);
+        $this->container[Timer::class]->end($name);
 
         return $data;
     }
@@ -113,5 +102,14 @@ class Router implements RouterInterface
     public function getNamedRoutes(): array
     {
         return $this->call(__FUNCTION__, func_get_args());
+    }
+
+    public function cloneInstance(?ContainerInterface $container): ?object
+    {
+        $this->container = $container;
+        if ($this->object instanceof CloningContainer) {
+            $this->object = $this->object->cloneInstance($container);
+        }
+        return null;
     }
 }

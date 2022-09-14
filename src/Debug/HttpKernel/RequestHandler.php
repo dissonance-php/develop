@@ -4,34 +4,24 @@
 namespace Symbiotic\Develop\Debug\HttpKernel;
 
 
+use Psr\Container\ContainerInterface;
+use Symbiotic\Container\CloningContainer;
 use Symbiotic\Develop\Services\Debug\Timer;
 use Psr\Http\Message\ {ResponseInterface, ServerRequestInterface};
 use Psr\Http\Server\RequestHandlerInterface;
 
 
-class RequestHandler implements RequestHandlerInterface
+class RequestHandler implements RequestHandlerInterface,CloningContainer
 {
-    /**
-     * @var RequestHandlerInterface
-     */
-    protected $object;
-
-    /**
-     * @var Timer
-     */
-    protected $timer;
-
-    public function __construct(RequestHandlerInterface $object, Timer $timer)
+    public function __construct(protected RequestHandlerInterface $object, protected ContainerInterface $container)
     {
-        $this->object = $object;
-        $this->timer = $timer;
     }
 
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
-        $name = $this->timer->start(get_class($this->object).'::handle');
+        $name = $this->container[Timer::class]->start(get_class($this->object).'::handle');
         $data = $this->call(__FUNCTION__, func_get_args());
-        $this->timer->end($name);
+        $this->container[Timer::class]->end($name);
 
         return $data;
     }
@@ -39,6 +29,13 @@ class RequestHandler implements RequestHandlerInterface
     protected function call($method, $parameters)
     {
         return call_user_func_array([$this->object, $method], $parameters);
+    }
+
+    public function cloneInstance(?ContainerInterface $container): ?object
+    {
+        $new = clone $this;
+        $new->container = $container;
+        return $new;
     }
 
 
