@@ -1,6 +1,0 @@
-<?php
-
-namespace Symbiotic\Develop;
-
-
-

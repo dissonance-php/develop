@@ -27,6 +27,10 @@ class Timer implements \JsonSerializable
         return $name;
     }
 
+    public function stop(string $name)
+    {
+        $this->end($name);
+    }
     /**
      * Sets end microtime
      *
@@ -44,7 +48,7 @@ class Timer implements \JsonSerializable
           //  throw new \LogicException("Таймер [$name] был завершен ранее!");
         }
         $this->timers[$name]['end'] =  microtime(true);
-        $this->timers[$name]['memory'] = self::readableSize(memory_get_usage(true), null);
+        $this->timers[$name]['memory'] = self::readableSize(memory_get_usage(), null);
         $microtime =  $this->timers[$name]['end'] -  $this->timers[$name]['start'];
         $this->timers[$name]['time'] = self::readableElapsedTime($microtime, null);
 

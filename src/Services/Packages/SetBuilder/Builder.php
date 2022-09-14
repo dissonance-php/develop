@@ -4,7 +4,7 @@
 namespace Symbiotic\Develop\Services\Packages\SetBuilder;
 
 
-use const _DS\DS;
+use const _S\DS;
 
 /**
  * За дубли кода не судите, никидываю быстро прототип

@@ -9,7 +9,7 @@
         width: 85%;
     }
 </style>
-<form action="{{route('backend:develop::PackagesBuilding.SetBuildCreator.create')}}" method="post">
+<form action="{{$this->route('backend:develop::PackagesBuilding.SetBuildCreator.create')}}" method="post">
     <fieldset>
         <div class="row">
             <div class="col-sm-12 col-md-4">

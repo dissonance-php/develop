@@ -31,7 +31,7 @@
         <div class="col-sm-4 col-md-6">{{$app('config::app_class','Нет')}}</div>
     </div>
     <div class="col-md-12 col-sm-12">
-        <a href="{{route('backend:develop::apps.routes', ['app_id' => $app->getId()])}}" target="_blank">
+        <a href="{{$this->route('backend:develop::apps.routes', ['app_id' => $app->getId()])}}" target="_blank">
             <h2>Просмотр роутинга</h2>
         </a>
     </div>

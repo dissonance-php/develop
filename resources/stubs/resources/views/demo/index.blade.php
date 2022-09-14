@@ -7,7 +7,7 @@
 @section('sidebar')
     @foreach($actions as $k => $v)
         <li>
-            <a href="{{route($k)}}" >{{$v}}</a>
+            <a href="{{$this->route($k)}}" >{{$v}}</a>
         </li>
     @endforeach
 @stop

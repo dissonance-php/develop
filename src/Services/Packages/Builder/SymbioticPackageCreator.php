@@ -5,7 +5,7 @@ namespace Symbiotic\Develop\Services\Packages\Builder;
 use Symbiotic\Core\Support\Str;
 use function dirname;
 use function trim;
-use const _DS\DS;
+use const _S\DS;
 
 /**
  * Class SymbioticPackageCreator
@@ -28,101 +28,102 @@ class SymbioticPackageCreator extends StaticPackageCreator implements AppPackage
      * @see SymbioticPackageCreator::setBaseNamespace()
      * @var string|null
      */
-    protected $base_namespace = null;
+    protected ?string $base_namespace = null;
 
-    protected $with_app = true;
+    protected bool $with_app = true;
 
-    protected $with_app_providers = false;
+    protected bool $with_app_providers = false;
 
-    protected $with_app_container = false;
+    protected bool $with_app_container = false;
 
     /**
      * @var bool Глобальный флаг генерации контроллеров
-     * Если false то не будет создан роутинг, контроллеры, шаблоны контроллеров
+     * Если false, то не будет создан роутинг, контроллеры, шаблоны контроллеров
      */
-    protected $with_app_controllers = true;
+    protected bool $with_app_controllers = true;
 
-    protected $with_app_backend_controllers = true;
+    protected bool $with_app_backend_controllers = true;
 
-    protected $with_app_frontend_controllers = true;
+    protected bool $with_app_frontend_controllers = true;
 
-    protected $with_core_bootstrap = false;
+    protected bool $with_core_bootstrap = false;
 
-    protected $with_core_provider = false;
+    protected bool $with_core_provider = false;
 
-    protected $with_demo = false;
+    protected bool $with_demo = false;
 
 
-    public function setBaseNamespace(string $namespace)
+    public function setBaseNamespace(string $namespace):static
     {
         $this->base_namespace = trim($namespace, '\\/');
 
         return $this;
     }
 
-    public function withBootstrap(): self
+    public function withBootstrap(): static
     {
         $this->with_core_bootstrap = true;
         return $this;
     }
 
-    public function withCoreProviders(): self
+    public function withCoreProviders(): static
     {
         $this->with_core_provider = true;
         return $this;
     }
 
-    public function withOutBootstrap(): self
+    public function withOutBootstrap(): static
     {
         $this->with_core_bootstrap = false;
         return $this;
     }
 
-    public function withOutCoreProvider(): self
+    public function withOutCoreProvider(): static
     {
         $this->with_core_provider = false;
         return $this;
     }
 
-    public function withAppProviders(): self
+    public function withAppProviders(): static
     {
         $this->with_app_providers = true;
         return $this;
     }
 
-    public function withApplicationContainer()
+    public function withApplicationContainer():static
     {
         $this->with_app_container = true;
+        return $this;
     }
 
-    public function withOutApp(): self
+    public function withOutApp(): static
     {
         $this->with_app = false;
 
         return $this;
     }
 
-    public function withOutBackend(): self
+    public function withOutBackend(): static
     {
         $this->with_app_backend_controllers = false;
 
         return $this;
     }
 
-    public function withOutFrontend(): self
+    public function withOutFrontend(): static
     {
         $this->with_app_frontend_controllers = false;
         return $this;
     }
 
-    public function withOutControllers(): self
+    public function withOutControllers(): static
     {
         $this->with_app_controllers = false;
 
         return $this;
     }
 
-    public function withDemo(): self
+    public function withDemo(): static
     {
         $this->with_demo = true;
         return $this;
@@ -141,7 +142,7 @@ class SymbioticPackageCreator extends StaticPackageCreator implements AppPackage
              * ]
              */
             $this->symbiotic_package_config['app'] = [
-                'id' => $this->packege_id,
+                'id' => $this->package_id,
             ];
             if ($this->parent_app_id) {
                 $this->symbiotic_package_config['app']['parent_app'] = $this->parent_app_id;
@@ -200,7 +201,8 @@ class SymbioticPackageCreator extends StaticPackageCreator implements AppPackage
         $files = [
             'resources/views/demo/layout.blade.php' => 'resources/views/demo/layout.blade.php',
             'resources/views/demo/backend.blade.php' => 'resources/views/demo/backend.blade.php',
-            'resources/views/demo/index.blade.php' => 'resources/views/demo/index.blade.php'
+            'resources/views/demo/index.blade.php' => 'resources/views/demo/index.blade.php',
+            'resources/views/demo/services.blade.php' => 'resources/views/demo/services.blade.php'
         ];
 
         $this->createFiles($files);
@@ -269,6 +271,15 @@ class SymbioticPackageCreator extends StaticPackageCreator implements AppPackage
         $this->createClassesFiles([
             'src/Providers/AppProvider' . $this->getDemoString() . '.php' => 'src/Providers/AppProvider.php'
         ]);
+        if($this->with_demo) {
+            $this->createClassesFiles(
+                [
+                 'src/Services/LiveService.php' => 'src/Services/LiveService.php',
+                 'src/Services/CloningService.php' => 'src/Services/CloningService.php',
+                 'src/Services/Singleton.php' => 'src/Services/Singleton.php'
+                ]
+            );
+        }
     }
 
     protected function createAppRouting()
@@ -306,7 +317,7 @@ class SymbioticPackageCreator extends StaticPackageCreator implements AppPackage
         }
     }
 
-    protected function getStubClassContent(string $path, array $replaces)
+    protected function getStubClassContent(string $path, array $replaces):string
     {
         $replaces = array_merge($this->getStubReplaces(), $replaces);
         return $this->getStubFileContent($path, array_merge($this->getStubReplaces(), $replaces));
@@ -316,7 +327,7 @@ class SymbioticPackageCreator extends StaticPackageCreator implements AppPackage
     protected function getBaseNamespace(): string
     {
         if (!$this->base_namespace) {
-            $this->base_namespace = 'Symbiotic\\Module\\' . \ucfirst(Str::camel($this->packege_id));
+            $this->base_namespace = 'Symbiotic\\Module\\' . \ucfirst(Str::camel($this->package_id));
         }
 
         return $this->base_namespace;

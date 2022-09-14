@@ -2,9 +2,10 @@
 namespace Symbiotic\Develop\Http\Controllers\Backend;
 
 use Symbiotic\Core\CoreInterface;
+use Symbiotic\View\ViewFactory;
 use Symbiotic\Routing\RouteInterface;
-use Symbiotic\Core\View\View;
-use function _DS\response;
+use Symbiotic\View\View;
+use function _S\response;
 
 
 class Docs
@@ -16,6 +17,11 @@ class Docs
         // ну и хватит
     ];
 
+    public function __construct(protected ViewFactory $view)
+    {
+    }
+
+
     public function index(RouteInterface $route, CoreInterface $core)
     {
         $version = $route->getParam('version');
@@ -24,7 +30,7 @@ class Docs
             return response(404);
         }
 
-        return View::make('backend/docs/'.$lang.'/'.$version.'/index', ['core' => $core, $this->langs]);
+        return $this->view->make('backend/docs/'.$lang.'/'.$version.'/index', ['core' => $core, $this->langs]);
 
     }
 }

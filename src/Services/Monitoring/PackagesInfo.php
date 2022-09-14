@@ -38,7 +38,7 @@ class PackagesInfo
         $apps = [];
         $defered_services = [];
         $plugins_packages = [];
-        foreach ($repository->getPackages() as $config) {
+        foreach ($repository->all() as $config) {
             $this->count_packages++;
             $id = $config['id'] ?? \md5(\serialize($config));
             $static_package = true;

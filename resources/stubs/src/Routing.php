@@ -16,12 +16,12 @@ class DummyClass extends AppRouting
      *
      * Работают в префиксе /framework_root/backend/#APP_ID#/
      * и защищены Миддлварой авторизации (еще не сделано)
-     *  для поиска роута route('backend:#APP_ID#::index') {@see \_DS\route()}
+     *  для поиска роута route('backend:#APP_ID#::index') {@see \_S\route()}
      *
      *
      * @param RouterInterface $router
      */
-    public function backendRoutes(RouterInterface $router)
+    public function backendRoutes(RouterInterface $router):void
     {
         /**
          * @uri /framework_root/backend/#APP_ID#/ - корневой екшен приложения
@@ -50,11 +50,11 @@ class DummyClass extends AppRouting
      * Публичные роуты приложения
      *
      * Работают в префиксе /framework_root/#APP_ID#/
-     * для поиска роута route('#APP_ID#::home') {@see \_DS\route()}
+     * для поиска роута route('#APP_ID#::home') {@see \_S\route()}
      *
      * @param RouterInterface $router
      */
-    public function frontendRoutes(RouterInterface $router)
+    public function frontendRoutes(RouterInterface $router):void
     {
         /**
          * @link #FRAMEWORK_ROOT_URI#/#APP_ID#/
@@ -70,11 +70,11 @@ class DummyClass extends AppRouting
 
     /**
      * Работают в корне фремворка /framework_root/
-     * для поиска роута по имени route('default::#APP_ID#.route_name') {@see \_DS\route()}
+     * для поиска роута по имени route('default::#APP_ID#.route_name') {@see \_S\route()}
      *
      * @param RouterInterface $router
      */
-    public function defaultRoutes(RouterInterface $router)
+    public function defaultRoutes(RouterInterface $router):void
     {
         /**
          * @link #FRAMEWORK_ROOT_URI#/default_#APP_ID#/ - md5 кривой, но

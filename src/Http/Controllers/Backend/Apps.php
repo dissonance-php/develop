@@ -7,19 +7,25 @@ namespace  Symbiotic\Develop\Http\Controllers\Backend;
 use Symbiotic\Apps\AppsRepositoryInterface;
 use Symbiotic\Apps\ApplicationInterface;
 use Symbiotic\Core\CoreInterface;
+use Symbiotic\View\ViewFactory;
 use Symbiotic\Routing\RouteInterface;
 use Symbiotic\Routing\RouterInterface;
 use Symbiotic\Develop\Services\Monitoring\PackagesInfo;
-use Symbiotic\Core\View\View;
+use Symbiotic\View\View;
 use Psr\Http\Message\ServerRequestInterface;
 
 class Apps
 {
 
+    public function __construct(protected ViewFactory $view)
+    {
+    }
+
+
     public function index(CoreInterface $core, PackagesInfo $packages)
     {
 
-        return View::make('backend/apps/index',
+        return $this->view->make('backend/apps/index',
             ['packages' => $packages]);
 
     }
@@ -29,19 +35,20 @@ class Apps
         $app_id = $route->getParam('app_id');
         /**
          * @var  ApplicationInterface $app
+         * @var  RouterInterface $routing
          */
         $app = $core[AppsRepositoryInterface::class]->get($app_id);
 
         $routing = $core[RouterInterface::class];
 
         $routes = [
-           'api' => $routing->getBySettlement('api:'.$app_id),
-           'backend' => $routing->getBySettlement('backend:'.$app_id),
-           'frontend' => $routing->getBySettlement($app_id),
-           'default' => $routing->getBySettlement('default:'.$app_id),
+           'api' => $routing->getByNamePrefix('api:'.$app_id),
+           'backend' => $routing->getByNamePrefix('backend:'.$app_id),
+           'frontend' => $routing->getByNamePrefix($app_id),
+           'default' => $routing->getByNamePrefix('default:'.$app_id),
         ];
 
-        return View::make('backend/apps/app',
+        return $this->view->make('backend/apps/app',
             [
                 'packages' => $packages,
                 'routes' => $routes,
@@ -58,12 +65,12 @@ class Apps
         $app = $core[AppsRepositoryInterface::class]->get($app_id);
 
         $routes = [
-            'api' => $routing->getBySettlement('api:'.$app_id),
-            'backend' => $routing->getBySettlement('backend:'.$app_id),
-            'frontend' => $routing->getBySettlement($app_id),
-            'default' => $routing->getBySettlement('default:'.$app_id),
+            'api' => $routing->getSettlementRoutes('api:'.$app_id),
+            'backend' => $routing->getSettlementRoutes('backend:'.$app_id),
+            'frontend' => $routing->getSettlementRoutes($app_id),
+            'default' => $routing->router('default')->getNamedRoutes(),
         ];
-        return View::make('backend/apps/routes', [
+        return $this->view->make('backend/apps/routes', [
             'routes' => $routes,
             'app'=>$app
         ]);

@@ -4,16 +4,17 @@ namespace DummyNamespace;
 
 use Symbiotic\Core\{CoreInterface, BootstrapInterface};
 use Symbiotic\Http\Kernel\{HttpKernel, HttpRunner, RoutingHandler};
+use Symbiotic\Container\DIContainerInterface;
 
 
 class DummyClass implements BootstrapInterface
 {
 
     /**
-     * @param CoreInterface | \Symbiotic\Core | array $app = [
+     * @param CoreInterface | array $core = [
      *   // Сервисы доступные сразу
      *
-     *       'config' => new \Symbiotic\Config(), {@used-by \_DS\config()}
+     *       'config' => new \Symbiotic\Config(), {@used-by \_S\config()}
      *       'events' => new \Symbiotic\EventDispatcher(), //{@see \Symbiotic\Core\Bootstrap\EventBootstrap::bootstrap()}
      *       'listeners' => new \Symbiotic\Events\ListenerProvider(),  //{@see \Symbiotic\Core\Bootstrap\EventBootstrap::bootstrap()}
      *
@@ -35,7 +36,7 @@ class DummyClass implements BootstrapInterface
      *       'route' => new \Symbiotic\Routing\RouteInterface(),           //{@see \Symbiotic\Http\Kernel\RouteHandler::handle()}
      * ]
      */
-    public function bootstrap(CoreInterface $app): void
+    public function bootstrap(DIContainerInterface $core): void
     {
         // тут можно добавить свои расширения ядра и сервисы
     }

@@ -3,6 +3,8 @@
 namespace Symbiotic\Develop\Services\Packages\Builder;
 
 
+use Symbiotic\Core\CoreInterface;
+
 class PackageCreatorBuilder
 {
     const PACKAGE_TYPES = [
@@ -12,6 +14,10 @@ class PackageCreatorBuilder
         'app'  => 'Пакет приложения с админкой',
         'full'  => 'Пакет приложения с админкой и расширением ядра',
     ];
+
+    public function __construct(protected CoreInterface $app)
+    {
+    }
 
     public function getTypes()
     {
@@ -27,7 +33,7 @@ class PackageCreatorBuilder
      */
     public function createStaticPackage(string $apps_directory, string $id, string $title = null)
     {
-        return new StaticPackageCreator($apps_directory, $id, $title);
+        return new StaticPackageCreator($apps_directory, $id, $title, $this->app);
     }
 
     /**
@@ -40,7 +46,7 @@ class PackageCreatorBuilder
      */
     public function createCorePackage(string $apps_directory, string $id, string $title = null)
     {
-        $package =  new SymbioticPackageCreator($apps_directory, $id, $title);
+        $package =  new SymbioticPackageCreator($apps_directory, $id, $title,$this->app);
         $package->withOutApp();
         $package->withBootstrap();
         $package->withCoreProviders();
@@ -56,7 +62,7 @@ class PackageCreatorBuilder
      */
     public function createAppPackage(string $apps_directory, string $id, string $title = null)
     {
-        $package =  new SymbioticPackageCreator($apps_directory, $id, $title);
+        $package =  new SymbioticPackageCreator($apps_directory, $id, $title,$this->app);
 
         return $package;
     }
@@ -69,7 +75,7 @@ class PackageCreatorBuilder
      */
     public function createFrontendAppPackage(string $apps_directory, string $id, string $title = null)
     {
-        $package =  new SymbioticPackageCreator($apps_directory, $id, $title);
+        $package =  new SymbioticPackageCreator($apps_directory, $id, $title,$this->app);
         $package->withOutBackend();
 
         return $package;

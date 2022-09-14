@@ -3,10 +3,11 @@
 namespace DummyNamespace;
 
 
+use Psr\Container\ContainerInterface;
 use Symbiotic\Apps\AppConfigInterface;
 use Symbiotic\Apps\ApplicationInterface;
 use Symbiotic\Core\CoreInterface;
-use Symbiotic\Core\View\View;
+use Symbiotic\View\View;
 use Symbiotic\Http\DownloadResponse;
 use Symbiotic\Mimetypes\MimeTypesMini;
 use Symbiotic\Packages\AssetsRepositoryInterface;
@@ -14,11 +15,17 @@ use Symbiotic\Packages\ResourcesRepositoryInterface;
 use Symbiotic\Routing\RouteInterface;
 use Psr\Http\Message\ {ResponseInterface, ServerRequestInterface, StreamInterface};
 
-use function _DS\response;
+use Symbiotic\View\ViewFactory;
+
+use function _S\response;
 
 
 class DummyClass
 {
+
+    public function __construct(protected ViewFactory $view)
+    {
+    }
 
     /**
      * Корневой публичный экшен приложения
@@ -55,13 +62,12 @@ class DummyClass
             'view' => 'demo/index',
         ];
 
-        return View::make($controller['view'], [
+        return $this->view->make($controller['view'], [
             'actions' => $actions,
             'controller' => $controller,
             'route' => $app['route'],
             'app' => $app
         ]);
-
     }
 
 
@@ -70,7 +76,7 @@ class DummyClass
      * @uri  /framework_root/#APP_ID#/array/
      *
      * @param ApplicationInterface $app
-     * @param RouteInterface $route
+     * @param RouteInterface       $route
      *
      * @return array
      *
@@ -102,7 +108,7 @@ class DummyClass
      * @route('#APP_ID#::file')
      * @uri  /framework_root/#APP_ID#/file/
      *
-     * @param ResponseInterface $response
+     * @param ResponseInterface    $response
      * @param ApplicationInterface $app
      *
      * @return ResponseInterface
@@ -112,8 +118,6 @@ class DummyClass
      */
     public function file(ResponseInterface $response, ApplicationInterface $app)
     {
-
-
         // file path PACKAGE_ROOT/assets/js/app.js
         $asset_file_path = 'js/app.js';
 
@@ -131,13 +135,17 @@ class DummyClass
     }
 
     /**
-     * @param AppConfigInterface $config
+     * @param AppConfigInterface           $config
      * @param ResourcesRepositoryInterface $repository
-     * @param ResponseInterface $response
+     * @param ResponseInterface            $response
+     *
      * @return StreamInterface|null
      */
-    public function resource(AppConfigInterface $config, ResourcesRepositoryInterface $repository, ResponseInterface $response)
-    {
+    public function resource(
+        AppConfigInterface $config,
+        ResourcesRepositoryInterface $repository,
+        ResponseInterface $response
+    ) {
         // Path PACKAGE_ROOT/resources/docs/users.txt
         $path = 'docs/users.txt';
 
@@ -175,7 +183,7 @@ class DummyClass
         if ($file) {
             return new DownloadResponse($file, $asset_file_path);
         }
-        return response(404);
+        return response($app, 404);
     }
 
     /**
@@ -189,9 +197,9 @@ class DummyClass
      * @uses \DummyNamespace\Routing::frontendRoutes()
      * @see  \Symbiotic\Routing\AppRouting::frontendRoutes()
      */
-    public function error404()
+    public function error404(ContainerInterface $app)
     {
-        return response(404);
+        return response($app, 404);
     }
 
 
@@ -199,7 +207,7 @@ class DummyClass
      * Экшен в глобальном роутинга фреймворка
      *
      * @route('default::#APP_ID#.md5_route')
-     * @uri /framework_root/default_d2r4334tf3fd34rdd23dd33d3/
+     * @uri  /framework_root/default_d2r4334tf3fd34rdd23dd33d3/
      *
      * @param AppConfigInterface $config
      *
@@ -208,7 +216,7 @@ class DummyClass
      * @uses \DummyNamespace\Routing::defaultRoutes()
      * @see  \Symbiotic\Routing\AppRouting::defaultRoutes()
      */
-    public function app_md5(AppConfigInterface $config)
+    public function app_md5(AppConfigInterface $config): array
     {
         return ['md5' => \md5($config->getId())];
     }
@@ -216,7 +224,9 @@ class DummyClass
 
     /**
      * Получение сервисов
+     *
      * @param CoreInterface $core_container
+     *
      * @return mixed
      */
 
@@ -225,17 +235,17 @@ class DummyClass
         return $core_container('config::uri_prefix', '/');
     }
 
-    public function app(ApplicationInterface $app_container)
+    public function app(ApplicationInterface $app_container): string
     {
         return $app_container->getId();
     }
 
-    public function config(AppConfigInterface $app_config)
+    public function config(AppConfigInterface $app_config): string
     {
         return $app_config->getAppName();
     }
 
-    public function request(ServerRequestInterface $request)
+    public function request(ServerRequestInterface $request): array
     {
         return $request->getAttributes();
     }
@@ -243,17 +253,17 @@ class DummyClass
     public function response(ResponseInterface $response)
     {
         return $response->withStatus(404);
-        // or new response create
-        // return response(404);
     }
 
 
     /**
      * Получение текущего роута запроса
+     *
      * @param RouteInterface $route
+     *
      * @return array
      */
-    public function route(RouteInterface $route)
+    public function route(RouteInterface $route): array
     {
         /**
          * Параметры из патерна роута

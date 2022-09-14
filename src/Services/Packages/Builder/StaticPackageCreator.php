@@ -1,7 +1,9 @@
 <?php
+declare(strict_types=1);
 
 namespace Symbiotic\Develop\Services\Packages\Builder;
 
+use Symbiotic\Core\CoreInterface;
 use Symbiotic\Filesystem\Filesystem;
 use Symbiotic\Packages\ResourcesRepositoryInterface;
 use Exception;
@@ -10,8 +12,9 @@ use Psr\Http\Message\UriInterface;
 use RecursiveDirectoryIterator;
 use RecursiveIteratorIterator;
 use SplFileInfo;
-use function _DS\app;
-use const _DS\DS;
+
+
+use const _S\DS;
 
 /**
  * Class StaticPackageCreator
@@ -27,7 +30,7 @@ class StaticPackageCreator implements StaticPackageInterface
      * Корневая папка модулей
      * @var string
      */
-    protected $apps_directory = '';
+    protected string $apps_directory = '';
 
     /**
      * ДОполнительный преыфикс (подпака)
@@ -36,13 +39,13 @@ class StaticPackageCreator implements StaticPackageInterface
      * vendor/symbiotic
      * @var string
      */
-    protected $vendor_path_prefix = true;
+    protected bool $vendor_path_prefix = true;
 
-    protected $packege_id = '';
+    protected string $package_id = '';
 
-    protected $parent_app_id = null;
+    protected ?string $parent_app_id = null;
 
-    protected $title = '';
+    protected string $title = '';
 
     /**
      * Принудительное пересоздание модуля
@@ -50,31 +53,33 @@ class StaticPackageCreator implements StaticPackageInterface
      *
      * @var bool
      */
-    protected $force_create = false;
+    protected bool $force_create = false;
 
     /**
      * Конфиг пакета Приложения
      * @var array
      */
-    protected $symbiotic_package_config = [];
+    protected array $symbiotic_package_config = [];
 
-    protected $framework_uri;
+    protected string $framework_uri;
 
+    protected CoreInterface $core;
 
-    public function __construct(string $apps_directory, string $id, string $title = null)
+    public function __construct(string $apps_directory, string $id, string $title = null, CoreInterface $core )
     {
+        $this->core = $core;
         $this->apps_directory = \rtrim($apps_directory, '\\/');
         if (1 !== \preg_match("@^[a-z][._0-9a-z-]+$@", $id)) {
             throw new \Exception('Название пакета не валидно! Разрешено только [a-z-_.] и первый символ буква!');
         }
-        $this->packege_id = $id;
-        $this->title = $title ? $title : \ucfirst($id);
+        $this->package_id = $id;
+        $this->title = $title ?: \ucfirst($id);
         /**
          * @var ServerRequestInterface $request
-         * @var UriInterface $uri
+         * @var UriInterface           $uri
          */
-        $uri = app(ServerRequestInterface::class)->getUri();
-        $this->framework_uri = $uri->withPath(rtrim(app('base_uri'), '/\\'));
+        $uri = $this->core->get(ServerRequestInterface::class)->getUri();
+        $this->framework_uri = (string)$uri->withPath(rtrim($this->core->get('base_uri'), '/\\'));
     }
 
 
@@ -126,9 +131,9 @@ class StaticPackageCreator implements StaticPackageInterface
         $this->createResources();
     }
 
-    public function getPackegeId()
+    public function getPackageId()
     {
-        return (!empty($this->parent_app_id) ? $this->parent_app_id . '.' : '') . $this->packege_id;
+        return (!empty($this->parent_app_id) ? $this->parent_app_id . '.' : '') . $this->package_id;
     }
 
     protected function createAssets()
@@ -139,7 +144,6 @@ class StaticPackageCreator implements StaticPackageInterface
             'assets/js/app.js' => 'assets/js/app.js',
         ];
         $this->createFiles($files);
-
     }
 
     protected function createResources()
@@ -165,14 +169,17 @@ class StaticPackageCreator implements StaticPackageInterface
     {
         $this->createFile(
             $this->getPackagePath('composer.json'),
-            \json_encode($this->composer, JSON_UNESCAPED_SLASHES| JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT /*| JSON_THROW_ON_ERROR*/)
+            \json_encode(
+                $this->composer,
+                JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT /*| JSON_THROW_ON_ERROR*/
+            )
         );
     }
 
     protected function buildComposerConfig()
     {
         if (empty($this->package_name)) {
-            $this->withPackageName($this->packege_id);
+            $this->withPackageName($this->package_id);
         }
         if (empty($this->description)) {
             $this->withDescription('Package (' . $this->title . ') for Symbiotic.');
@@ -183,7 +190,7 @@ class StaticPackageCreator implements StaticPackageInterface
          */
         $this->composerBuildBase();
         $this->symbiotic_package_config = [
-            'id' => $this->getPackegeId(),
+            'id' => $this->getPackageId(),
         ];
         $this->composer['extra'] = [
             'symbiotic' => &$this->symbiotic_package_config
@@ -222,6 +229,7 @@ class StaticPackageCreator implements StaticPackageInterface
      *
      * @param string $path Путь относительно корневой директории /resources/stubs/
      * @param array|null $replaces
+     *
      * @return string|string[]
      */
     protected function getStubFileContent(string $path, array $replaces = null)
@@ -239,25 +247,25 @@ class StaticPackageCreator implements StaticPackageInterface
         return $content;
     }
 
-    protected function getStubReplaces()
+    protected function getStubReplaces(): array
     {
         return [
             '#FRAMEWORK_ROOT_URI#' => $this->framework_uri,
-            '#APP_ID#' => $this->packege_id,
+            '#APP_ID#' => $this->package_id,
             '#APP_NAME#' => $this->title
         ];
     }
 
-    protected function getResourceFileContent(string $path)
+    protected function getResourceFileContent(string $path): string
     {
         /**
          * @var ResourcesRepositoryInterface $resources
          */
-        $resources = app('resources');
+        $resources = $this->core->get('resources');
         return $resources->getResourceFileStream('develop', $path)->getContents();
     }
 
-    protected function getPackageRootPath()
+    protected function getPackageRootPath(): string
     {
         return $this->apps_directory . DIRECTORY_SEPARATOR .
             (!empty($this->vendor_path_prefix) ? \trim($this->vendor, '\\/') . DIRECTORY_SEPARATOR : '')
@@ -266,11 +274,12 @@ class StaticPackageCreator implements StaticPackageInterface
 
     /**
      * @param string $dir
+     *
      * @return bool
      * @todo: Надо использовать провайдер файловой системы
      * @see Filesystem::deleteDir();
      */
-    protected function deleteDir(string $dir)
+    protected function deleteDir(string $dir):bool
     {
         // todo: может сделать через glob? что быстрее? foreach(glob($dir . '/*', GLOB_NOSORT | GLOB_BRACE) as $File)
         $files = new RecursiveIteratorIterator(
@@ -293,14 +302,12 @@ class StaticPackageCreator implements StaticPackageInterface
 
     protected function mkdir($dir)
     {
-
         if (file_exists($dir)) {
             return;
         }
         if (!\mkdir($dir, 0777, true)) {
             throw new \Exception('Не возможно создать папку приложения [' . $dir . ']!');
         }
-
     }
 
     protected function makeRootDir()

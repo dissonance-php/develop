@@ -17,12 +17,12 @@
                 <h3>{{$type}}</h3>
             </div>
             <div class="col-sm-12 col-md-6 row">
-                @foreach($data as $route)
+                @foreach($data as $k => $route)
                     @if(!is_array($route))
-                        <div class="col-sm-8 col-md-8">{{$route->getName()}}</div>
+                        <div class="col-sm-8 col-md-8">{{$k}}</div>
                         <div class="col-sm-4 col-md-4">
                             @if($route->isStatic())
-                                <a href="{{route($type==='frontend'? $app->getId().'::'.$route->getName():($type ==='default'? 'default::'.$route->getName():$type.':'.$app->getId().'::'.$route->getName()))}}" target="_blank">
+                                <a href="{{$this->route($type==='frontend'? $app->getId().'::'.$route->getName():($type ==='default'? 'default::'.$route->getName():$type.':'.$app->getId().'::'.$route->getName()))}}" target="_blank">
                                     {{$route->getPath()}}
                                 </a>
                             @else

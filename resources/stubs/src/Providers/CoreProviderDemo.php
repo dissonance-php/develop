@@ -12,7 +12,7 @@ use Symbiotic\Core\ServiceProvider;
  * @property CoreInterface | \Symbiotic\Core\Core | array $app = [
  *   // Сервисы доступные сразу
  *
- *       'config' => new \Symbiotic\Config(), {@used-by \_DS\config()}
+ *       'config' => new \Symbiotic\Config(), {@used-by \_S\config()}
  *       'events' => new \Symbiotic\EventDispatcher(), //{@see \Symbiotic\Core\Bootstrap\EventBootstrap::bootstrap()}
  *       'listeners' => new \Symbiotic\Events\ListenerProvider(),  //{@see \Symbiotic\Core\Bootstrap\EventBootstrap::bootstrap()}
  *

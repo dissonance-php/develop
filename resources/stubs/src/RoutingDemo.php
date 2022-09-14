@@ -16,15 +16,15 @@ class DummyClass extends AppRouting
      *
      * Работают в префиксе /framework_root/backend/#APP_ID#/
      * и защищены Миддлварой авторизации (еще не сделано)
-     *  для поиска роута route('backend:#APP_ID#::index') {@see \_DS\route()}
+     *  для поиска роута route('backend:#APP_ID#::index') {@see \_S\route()}
      *
      *
      * @param RouterInterface $router
      */
-    public function backendRoutes(RouterInterface $router)
+    public function backendRoutes(RouterInterface $router): void
     {
         /**
-         * @uri /framework_root/backend/#APP_ID#/ - корневой екшен приложения
+         * @uri  /framework_root/backend/#APP_ID#/ - корневой екшен приложения
          * @uses \DummyPackageNamespace\Http\Controllers\Backend\Index::index()
          */
         $router->get('/', [
@@ -37,12 +37,17 @@ class DummyClass extends AppRouting
         ]);
 
         /**
-         * @uri /framework_root/backend/#APP_ID#/test/
+         * @uri  /framework_root/backend/#APP_ID#/test/
          * @uses \DummyPackageNamespace\Http\Controllers\Backend\Index::test()
          */
         $router->get('/test', [
             'uses' => 'Backend\\Index@test',
             'as' => 'test'
+        ]);
+
+        $router->get('/services_monitor', [
+            'uses' => 'Backend\\Index@servicesMonitor',
+            'as' => 'services_monitor'
         ]);
     }
 
@@ -50,15 +55,15 @@ class DummyClass extends AppRouting
      * Публичные роуты приложения
      *
      * Работают в префиксе /framework_root/#APP_ID#/
-     * для поиска роута route('#APP_ID#::home') {@see \_DS\route()}
+     * для поиска роута route('#APP_ID#::home') {@see \_S\route()}
      *
      * @param RouterInterface $router
      */
-    public function frontendRoutes(RouterInterface $router)
+    public function frontendRoutes(RouterInterface $router): void
     {
         /**
          * @link #FRAMEWORK_ROOT_URI#/#APP_ID#/
-         * @uri /framework_root/#APP_ID#/ - корневой екшен приложения
+         * @uri  /framework_root/#APP_ID#/ - корневой екшен приложения
          *
          * @uses \DummyPackageNamespace\Http\Controllers\Frontend\Index::index()
          */
@@ -69,7 +74,7 @@ class DummyClass extends AppRouting
 
         /**
          * @link #FRAMEWORK_ROOT_URI#/#APP_ID#/array/
-         * @uri /framework_root/#APP_ID#/array/  json ответ
+         * @uri  /framework_root/#APP_ID#/array/  json ответ
          * @uses \DummyPackageNamespace\Http\Controllers\Frontend\Index::array()
          */
         $router->get('array', [
@@ -79,7 +84,7 @@ class DummyClass extends AppRouting
 
         /**
          * @link #FRAMEWORK_ROOT_URI#/#APP_ID#/file/
-         * @uri /framework_root/#APP_ID#/file/  контент файла с заголовком мим типа
+         * @uri  /framework_root/#APP_ID#/file/  контент файла с заголовком мим типа
          * @uses \DummyPackageNamespace\Http\Controllers\Frontend\Index::file()
          */
         $router->get('file', [
@@ -89,7 +94,7 @@ class DummyClass extends AppRouting
 
         /**
          * @link #FRAMEWORK_ROOT_URI#/#APP_ID#/download/
-         * @uri /framework_root/#APP_ID#/download/  загрузка файла
+         * @uri  /framework_root/#APP_ID#/download/  загрузка файла
          * @uses \DummyPackageNamespace\Http\Controllers\Frontend\Index::download()
          */
         $router->get('download', [
@@ -99,33 +104,31 @@ class DummyClass extends AppRouting
 
         /**
          * @link #FRAMEWORK_ROOT_URI#/#APP_ID#/error404/
-         * @uri /framework_root/#APP_ID#/error404/  404 ошибка
+         * @uri  /framework_root/#APP_ID#/error404/  404 ошибка
          * @uses \DummyPackageNamespace\Http\Controllers\Frontend\Index::error404()
          */
         $router->get('error404', [
             'uses' => 'Frontend\\Index@error404',
             'as' => 'error404',
         ]);
-
     }
 
     /**
      * Работают в корне фремворка /framework_root/
-
-     * для поиска роута по имени route('default::#APP_ID#.route_name') {@see \_DS\route()}
+     * для поиска роута по имени route('default::#APP_ID#.route_name') {@see \_S\route()}
      *
      * @param RouterInterface $router
      */
-    public function defaultRoutes(RouterInterface $router)
+    public function defaultRoutes(RouterInterface $router): void
     {
         /**
-         * @link #FRAMEWORK_ROOT_URI#/default_#APP_ID#/ - md5 кривой, но 
-         * @uri /framework_root/default_#APP_ID#/ роут от корня фреймоворка
+         * @link #FRAMEWORK_ROOT_URI#/default_#APP_ID#/ - md5 кривой, но
+         * @uri  /framework_root/default_#APP_ID#/ роут от корня фреймоворка
          * @route("default:#APP_ID#::md5_route")
          *
          * @uses \DummyPackageNamespace\Http\Controllers\Frontend\Index::app_md5()
          */
-        $router->get('default_'.$this->getAppId(), [
+        $router->get('default_' . $this->getAppId(), [
             'uses' => 'Frontend\\Index@app_md5',
             'as' => 'md5_route',
         ]);

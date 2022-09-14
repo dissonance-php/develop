@@ -4,14 +4,14 @@ namespace DummyNamespace;
 
 use Symbiotic\Core\{CoreInterface, BootstrapInterface};
 use Symbiotic\Http\Kernel\{HttpKernel, HttpRunner, RoutingHandler};
-
+use Symbiotic\Container\DIContainerInterface;
 
 
 class DummyClass implements BootstrapInterface
 {
 
     /**
-     * @param CoreInterface|\Symbiotic\Core | array $app = [
+     * @param CoreInterface| array $app = [
      *   // Сервисы доступные сразу
      *
      *       'config' => new \Symbiotic\Config(),
@@ -21,7 +21,7 @@ class DummyClass implements BootstrapInterface
      *   // Сервисы которых может еще не быть, но они доступны сразу после отработки всех бутстраперов
      *
      *       'apps' => new \Symbiotic\Appss\AppsRepository(),  //{@see \Symbiotic\Apps\Bootstrap::bootstrap()}
-     *       'cache' => new \Symbiotic\SimpleCache\Cache(),             // может и не быть пакета
+     *       'cache' => new \Symbiotic\Cache\Cache(),             // может и не быть пакета
      *       'resources' => new \Symbiotic\Packages\Resources(),        //{@see \Symbiotic\Packages\ResourcesBootstrap::bootstrap()}
      *       'http_factory' => new \Symbiotic\Http\PsrHttpFactory(),    //{@see \Symbiotic\Http\Bootstrap::bootstrap()}
      *
@@ -36,7 +36,7 @@ class DummyClass implements BootstrapInterface
      *       'route' => new \Symbiotic\Routing\RouteInterface(),           //{@see \Symbiotic\Http\Kernel\RouteHandler::handle()}
      * ]
      */
-    public function bootstrap(CoreInterface $app): void
+    public function bootstrap(DIContainerInterface $core): void
     {
         // тут можно добавить свои расширения ядра и сервисы
     }

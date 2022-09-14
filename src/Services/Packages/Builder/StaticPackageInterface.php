@@ -8,7 +8,7 @@ interface  StaticPackageInterface extends ComposerConfigInterface
     /**
      * Флаг принудительной перезаписи приложения
      *
-     * Если установлен, то папка приложения будет очищена и персоздана
+     * Если установлен, то папка приложения будет очищена и перeсоздана
      */
     public function forceCreate();
 

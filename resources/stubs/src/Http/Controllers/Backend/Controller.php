@@ -2,21 +2,26 @@
 
 namespace DummyNamespace;
 
-use Symbiotic\Core\View\View;
+use Symbiotic\View\View;
+use Symbiotic\View\ViewFactory;
 
 
 class DummyClass
 {
 
-    public function index()
+    public function __construct(protected ViewFactory $view)
+    {
+    }
+
+    public function index(): View
     {
         /**
          *  template path #APP_ID#/resources/views/backend/index.blade.php
          */
-        return View::make('backend/index');
+        return $this->view->make('backend/index');
     }
 
-    public function test()
+    public function test(): array
     {
         return ['timestamp' => time()];
     }

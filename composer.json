@@ -1,18 +1,15 @@
 {
   "name": "symbiotic/develop",
   "require": {
-    "php": ">=7.2",
-    "symbiotic/ui_backend": "1.*"
+    "php": ">=8.0",
+    "symbiotic/ui_backend": "1.4.*"
   },
   "license": "MIT",
-  "version": "1.2.1",
+  "version": "1.4.0",
   "autoload": {
     "psr-4": {
       "Symbiotic\\Develop\\": "src/"
-    },
-    "files": [
-      "src/functions.php"
-    ]
+    }
   },
   "extra": {
     "symbiotic": {
@@ -22,12 +19,11 @@
         "name": "Develop",
         "routing": "\\Symbiotic\\Develop\\Routing",
         "controllers_namespace": "\\Symbiotic\\Develop\\Http\\Controllers",
-        "version": "1.2.1",
         "providers": [
           "\\Symbiotic\\Develop\\Providers\\AppProvider"
-        ],
-        "requires": []
-      }
+        ]
+      },
+      "bootstrappers": ["\\Symbiotic\\Develop\\Bootstrap\\DebugBootstrap"]
     }
   }
 }

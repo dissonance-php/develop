@@ -26,77 +26,57 @@ class Router implements RouterInterface
         $this->timer = $timer;
     }
 
-    public function setRoutesDomain(string $domain)
+    public function setRoutesDomain(string $domain): void
     {
-        $data = $this->call(__FUNCTION__, func_get_args());
-
-        return $data;
+        $this->call(__FUNCTION__, func_get_args());
     }
 
-    public function addRoute($httpMethods, string $uri, $action): RouteInterface
+    public function addRoute(string|array $httpMethods, string $uri, string|array|\Closure $action): RouteInterface
     {
-        $data = $this->call(__FUNCTION__, func_get_args());
-
-        return $data;
+        return $this->call(__FUNCTION__, func_get_args());
     }
 
     public function get(string $uri, $action): RouteInterface
     {
-        $data = $this->call(__FUNCTION__, func_get_args());
-
-        return $data;
+        return $this->call(__FUNCTION__, func_get_args());
     }
 
     public function post(string $uri, $action): RouteInterface
     {
-        $data = $this->call(__FUNCTION__, func_get_args());
-
-        return $data;
+        return $this->call(__FUNCTION__, func_get_args());
     }
 
     public function head(string $uri, $action): RouteInterface
     {
-        $data = $this->call(__FUNCTION__, func_get_args());
-
-        return $data;
+        return $this->call(__FUNCTION__, func_get_args());
     }
 
     public function put(string $uri, $action): RouteInterface
     {
-        $data = $this->call(__FUNCTION__, func_get_args());
-
-        return $data;
+        return $this->call(__FUNCTION__, func_get_args());
     }
 
     public function delete(string $uri, $action): RouteInterface
     {
-        $data = $this->call(__FUNCTION__, func_get_args());
-
-        return $data;
+        return $this->call(__FUNCTION__, func_get_args());
     }
 
     public function options(string $uri, $action): RouteInterface
     {
-        $data = $this->call(__FUNCTION__, func_get_args());
-
-        return $data;
+        return $this->call(__FUNCTION__, func_get_args());
     }
 
-    public function group(array $attributes, callable $routes)
+    public function group(array $attributes, \Closure $routes): void
     {
-        $data = $this->call(__FUNCTION__, func_get_args());
-
-        return $data;
+        $this->call(__FUNCTION__, func_get_args());
     }
 
-    public function getRoute(string $name): ?RouteInterface
+    public function getByName(string $name): ?RouteInterface
     {
-        $data = $this->call(__FUNCTION__, func_get_args());
-
-        return $data;
+        return $this->call(__FUNCTION__, func_get_args());
     }
 
-    public function getBySettlement(string $settlement): array
+    public function getByNamePrefix(string $name): array
     {
         $name = $this->timer->start();
         $data = $this->call(__FUNCTION__, func_get_args());
@@ -107,9 +87,7 @@ class Router implements RouterInterface
 
     public function getRoutes(string $httpMethod = null): array
     {
-        $data = $this->call(__FUNCTION__, func_get_args());
-
-        return $data;
+        return $this->call(__FUNCTION__, func_get_args());
     }
 
     public function match(string $httpMethod, string $uri): ?RouteInterface
@@ -127,4 +105,13 @@ class Router implements RouterInterface
         return call_user_func_array([$this->object, $method], $parameters);
     }
 
+    public function setParams(array $params): void
+    {
+        $this->call(__FUNCTION__, func_get_args());
+    }
+
+    public function getNamedRoutes(): array
+    {
+        return $this->call(__FUNCTION__, func_get_args());
+    }
 }

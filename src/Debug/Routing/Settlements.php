@@ -1,11 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Symbiotic\Develop\Debug\Routing;
 
 use Symbiotic\Develop\Services\Debug\Timer;
 
 use Symbiotic\Routing\Settlement;
+use Symbiotic\Routing\SettlementInterface;
 use Symbiotic\Routing\SettlementsInterface;
+
 
 class Settlements implements SettlementsInterface
 {
@@ -27,7 +31,7 @@ class Settlements implements SettlementsInterface
         $this->timer = $timer;
     }
 
-    public function getByRouter(string $router)
+    public function getByRouter(string $router): ?SettlementInterface
     {
         $name = $this->timer->start();
         $data = $this->call(__FUNCTION__, func_get_args());
@@ -45,7 +49,7 @@ class Settlements implements SettlementsInterface
         return $data;
     }
 
-    public function getByKey(string $key, $value, $all = false)
+    public function getByKey(string $key, mixed $value, $all = false): SettlementInterface|array|null
     {
         $name = $this->timer->start();
         $data = $this->call(__FUNCTION__, func_get_args());

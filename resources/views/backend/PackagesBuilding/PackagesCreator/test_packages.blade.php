@@ -13,7 +13,7 @@
     ее можно добавить в конфиге в ключе <strong>"packages_paths"</strong>.
 </p>
 
-<form action="{{route($route_prefix.'test_create')}}" method="post">
+<form action="{{$this->route($route_prefix.'test_create')}}" method="post">
 
     <fieldset>
         <div class="row">
@@ -58,4 +58,4 @@
     <input type="submit" class="primary" value="Создать">
 </form>
 
-<a href="{{route($route_prefix.'test_delete')}}">Удалить тестовые приложения</a>
+<a href="{{$this->route($route_prefix.'test_delete')}}">Удалить тестовые приложения</a>

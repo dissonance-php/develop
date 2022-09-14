@@ -2,7 +2,7 @@
 <?php
 /**
  * @var \Symbiotic\Develop\Services\Monitoring\PackagesInfo $packages_monitor
- * @var \Symbiotic\Develop\Services\Debug\Timer $timer
+ * @var \Symbiotic\Develop\Services\Debug\Timer             $timer
  */
 ?>
 <div class="row">
@@ -25,8 +25,15 @@
         <div class="col-sm-4 col-md-6">{{$packages_monitor->getCountStaticPackages()}}</div>
     </div>
     <div class="col-md-12 col-sm-12">
+        <a class="button primary"
+           href="{{$this->route('backend:develop::PackagesBuilding.PackagesCreator.test_packages')}}">Создать тестовые
+            приложения</a>
+        <a class="button " href="{{$this->route('backend:develop::PackagesBuilding.PackagesCreator.test_delete')}}">Удалить
+            тестовые приложения</a>
+    </div>
+    <div class="col-md-12 col-sm-12">
         <h3>Ядро</h3>
-       <p><small>Все расширения создают нагрузку при каждом запросе</small></p>
+        <p><small>Все расширения создают нагрузку при каждом запросе</small></p>
     </div>
     <div class="col-sm-12 col-md-6 row">
         <div class="col-sm-8 col-md-6">Бутстраперов:</div>
@@ -37,7 +44,29 @@
         <div class="col-sm-4 col-md-6">{{$packages_monitor->getCountDeferServices()}}</div>
     </div>
     <div class="col-md-12 col-sm-12">
-        <h3>Тайминги</h3>
+        <h3>Ключевые компоненты</h3>
+    </div>
+    <div class="col-sm-12 col-md-8 row">
+        <div class="col-sm-6 col-md-6">Core</div>
+        <div class="col-sm-4 col-md-6">
+            {{get_class($this->core())}}
+        </div>
+        <div class="col-sm-6 col-md-6">Routing</div>
+        <div class="col-sm-4 col-md-6">
+            {{get_class($this->core(\Symbiotic\Routing\RouterInterface::class))}}
+        </div>
+        <div class="col-sm-6 col-md-6">Session</div>
+        <div class="col-sm-4 col-md-6">
+            Driver ({{$this->core(\Symbiotic\Session\SessionManagerInterface::class)->getDefaultDriver()}})
+            {{get_class($this->core(\Symbiotic\Session\SessionStorageInterface::class))}}
+        </div>
+        <div class="col-sm-6 col-md-6">Cache</div>
+        <div class="col-sm-4 col-md-6">
+            {{get_class($this->core(\Psr\SimpleCache\CacheInterface::class))}}
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12">
+        <h3>Timers</h3>
     </div>
     <div class="col-sm-12 col-md-8 row">
         @foreach($timer->getTimers() as $v)
@@ -45,12 +74,25 @@
             <div class="col-sm-4 col-md-6">{{$v['time']}} mem: {{$v['memory']}}</div>
         @endforeach
     </div>
-
     <div class="col-md-12 col-sm-12">
-        <a href="{{ route('backend:develop::monitor.json') }}" target="_blank">
+        <h3>Память</h3>
+    </div>
+    <div class="col-sm-12 col-md-8 row">
+
+        <div class="col-sm-6 col-md-6">Пиковая</div>
+        <div class="col-sm-4 col-md-6">{{ \Symbiotic\Develop\Services\Debug\Timer::readableSize(memory_get_peak_usage())}}</div>
+        <div class="col-sm-6 col-md-6">Фактическая</div>
+        <div class="col-sm-4 col-md-6">{{ \Symbiotic\Develop\Services\Debug\Timer::readableSize(memory_get_usage())}}</div>
+        <div class="col-sm-6 col-md-6">Выделенная</div>
+        <div class="col-sm-4 col-md-6">{{ \Symbiotic\Develop\Services\Debug\Timer::readableSize(memory_get_usage(true))}}</div>
+
+    </div>
+    <div class="col-md-12 col-sm-12">
+        <a href="{{ $this->route('backend:develop::monitor.timer') }}" target="_blank">
             <h3>Тайминг в апи</h3>
         </a>
+        <a href="{{ $this->route('backend:develop::monitor.apps_memory') }}" target="_blank">
+            <h3>Память при всех загруженных приложениях</h3>
+        </a>
     </div>
-
-
 </div>

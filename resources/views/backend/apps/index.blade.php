@@ -24,7 +24,7 @@
         <tr>
 
             <td>
-                <a href="{{ route('backend:develop::apps.app',['app_id' => $v['id']]) }}">
+                <a href="{{ $this->route('backend:develop::apps.app',['app_id' => $v['id']]) }}">
                     {{$v['id']}}
                 </a>
             </td>
@@ -33,7 +33,7 @@
             </td>
             <td>
                 @if(!empty($v['app']['routing']))
-                    <a href="{{route('backend:develop::apps.routes', ['app_id' => $v['id']])}}" target="_blank">
+                    <a href="{{$this->route('backend:develop::apps.routes', ['app_id' => $v['id']])}}" target="_blank">
                         {{$v['app']['routing']}}
                     </a>
                 @endif

@@ -4,9 +4,10 @@ namespace Symbiotic\Develop\Debug\Packages;
 
 use Symbiotic\Core\CoreInterface;
 use Symbiotic\Develop\Services\Debug\Timer;
+use Symbiotic\Packages\PackageConfig;
 use Symbiotic\Packages\PackagesLoaderInterface;
 use Symbiotic\Packages\PackagesRepositoryInterface;
-use function _DS\app;
+use function _S\core;
 
 class PackagesRepository implements PackagesRepositoryInterface
 {
@@ -29,9 +30,9 @@ class PackagesRepository implements PackagesRepositoryInterface
 
     public function load(): void
     {
-        app(Timer::class)->start('load_packages');
+        core(Timer::class)->start('load_packages');
         $this->call(__FUNCTION__, func_get_args());
-        app(Timer::class)->end('load_packages');
+        core(Timer::class)->end('load_packages');
     }
 
     public function has($id): bool
@@ -39,16 +40,21 @@ class PackagesRepository implements PackagesRepositoryInterface
         return $this->call(__FUNCTION__, func_get_args());
     }
 
-    public function get($id): array
+    public function get(string $id): array
+    {
+        return $this->call(__FUNCTION__, func_get_args());
+    }
+
+    public function getPackageConfig(string $id):?PackageConfig
     {
         return $this->call(__FUNCTION__, func_get_args());
     }
 
     public function getIds(): array
     {
-        $name =  app(Timer::class)->start();
+        $name =  core(Timer::class)->start();
         $data = $this->call(__FUNCTION__, func_get_args());
-        app(Timer::class)->end($name);
+        core(Timer::class)->end($name);
         return $data;
     }
 
@@ -57,11 +63,17 @@ class PackagesRepository implements PackagesRepositoryInterface
         return $this->call(__FUNCTION__, func_get_args());
     }
 
-    public function getPackages(): array
+    public function getEventsHandlers(): array
     {
-      $name =  app(Timer::class)->start();
+        return $this->call(__FUNCTION__, func_get_args());
+    }
+
+
+    public function all(): array
+    {
+      $name =  core(Timer::class)->start();
         $data = $this->call(__FUNCTION__, func_get_args());
-        app(Timer::class)->end($name);
+        core(Timer::class)->end($name);
         return $data;
     }
 

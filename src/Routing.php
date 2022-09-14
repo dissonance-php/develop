@@ -11,13 +11,24 @@ use Symbiotic\Routing\AppRouting;
 class Routing extends AppRouting
 {
 
-    public function backendRoutes(RouterInterface $router)
+    public function frontendRoutes(RouterInterface $router): void
     {
+        $router->get('/timer/', [
+            'uses' => 'Backend\\Monitor@timer',
+            'as' => 'timer.json'
+        ]);
+    }
 
-        $router->group([ 'namespace' => 'Backend'], function(RouterInterface $router){
+    public function backendRoutes(RouterInterface $router): void
+    {
+        $router->group(['namespace' => 'Backend'], function (RouterInterface $router) {
             $router->get('/timer/', [
-                'uses' => 'Monitor@json',
-                'as' => 'monitor.json'
+                'uses' => 'Monitor@timer',
+                'as' => 'monitor.timer'
+            ]);
+            $router->get('/apps_memory/', [
+                'uses' => 'Monitor@memoryWithAllBooted',
+                'as' => 'monitor.apps_memory'
             ]);
             $router->get('/phpinfo/', [
                 'uses' => 'Monitor@phpinfo',
@@ -28,7 +39,7 @@ class Routing extends AppRouting
                 'as' => 'cache.clean'
             ]);
 
-            $router->group(['prefix' => '/apps', 'as' => 'apps'], function(RouterInterface $router){
+            $router->group(['prefix' => '/apps', 'as' => 'apps'], function (RouterInterface $router) {
                 $router->get('{app_id}/routes', [
                     'uses' => 'Apps@routes',
                     'as' => 'routes',
@@ -44,11 +55,10 @@ class Routing extends AppRouting
                 ]);
             });
             $router->group([
-                'prefix' => '/PackagesBuilding/packages',
-                'as'=> 'PackagesBuilding.PackagesCreator',
-                'namespace' => 'PackagesBuilding'
-            ],  function(RouterInterface $router)
-                {
+                               'prefix' => '/PackagesBuilding/packages',
+                               'as' => 'PackagesBuilding.PackagesCreator',
+                               'namespace' => 'PackagesBuilding'
+                           ], function (RouterInterface $router) {
                 // ajhvf ajplfybz gfrtnf yf ukfdyjq
                 $router->get('/', [
                     'uses' => 'PackagesCreator@index',
@@ -73,11 +83,10 @@ class Routing extends AppRouting
             });
 
             $router->group([
-                'prefix' => '/PackagesBuilding/SetBuildCreator',
-                'as'=> 'PackagesBuilding.SetBuildCreator',
-                'namespace' => 'PackagesBuilding'
-            ],  function(RouterInterface $router) {
-
+                               'prefix' => '/PackagesBuilding/SetBuildCreator',
+                               'as' => 'PackagesBuilding.SetBuildCreator',
+                               'namespace' => 'PackagesBuilding'
+                           ], function (RouterInterface $router) {
                 $router->get('/', [
                     'uses' => 'SetBuildCreator@index',
                     'as' => 'index',
@@ -88,9 +97,7 @@ class Routing extends AppRouting
                 ]);
             });
 
-
-
-            $router->group(['prefix' => '/docs', 'as' => 'docs'], function(RouterInterface $router){
+            $router->group(['prefix' => '/docs', 'as' => 'docs'], function (RouterInterface $router) {
                 $router->get('/', [
                     'uses' => 'Docs@index',
                     'as' => 'index',
@@ -103,10 +110,5 @@ class Routing extends AppRouting
                 'secure' => false
             ]);
         });
-
-
-
-
-
     }
 }
