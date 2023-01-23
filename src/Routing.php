@@ -40,7 +40,7 @@ class Routing extends AppRouting
             ]);
 
             $router->group(['prefix' => '/apps', 'as' => 'apps'], function (RouterInterface $router) {
-                $router->get('{app_id}/routes', [
+                $router->get('/{app_id}/routes', [
                     'uses' => 'Apps@routes',
                     'as' => 'routes',
                 ]);

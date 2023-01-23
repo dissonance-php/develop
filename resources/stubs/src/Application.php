@@ -10,7 +10,7 @@ use Symbiotic\Container\SubContainerTrait;
 use Symbiotic\Apps\ApplicationInterface;
 
 
-class DummyClass extends Application implements ApplicationInterface
+class DummyClass extends Application
 {
     /**
      * Тут можно добавить функционал в контейнер вашего приложения

@@ -20,8 +20,8 @@ class DummyClass implements BootstrapInterface
      *
      *   // Сервисы которых может еще не быть, но они доступны сразу после отработки всех бутстраперов
      *
-     *       'apps' => new \Symbiotic\Appss\AppsRepository(),  //{@see \Symbiotic\Apps\Bootstrap::bootstrap()}
-     *       'cache' => new \Symbiotic\SimpleCache\Cache(),             // может и не быть пакета
+     *       'apps' => new \Symbiotic\Apps\AppsRepository(),  //{@see \Symbiotic\Apps\Bootstrap::bootstrap()}
+     *       'cache' => new \Symbiotic\Cache\FilesystemCache(),             //{@see \Psr\SimpleCache\CacheInterface}
      *       'resources' => new \Symbiotic\Packages\Resources(),        //{@see \Symbiotic\Packages\ResourcesBootstrap::bootstrap()}
      *       'http_factory' => new \Symbiotic\Http\PsrHttpFactory(),    //{@see \Symbiotic\Http\Bootstrap::bootstrap()}
      *
