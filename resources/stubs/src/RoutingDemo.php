@@ -4,12 +4,11 @@
 namespace DummyPackageNamespace;
 
 
-use Symbiotic\Develop\Services\Routing\FakeRoutes;
 use Symbiotic\Routing\RouterInterface;
 use Symbiotic\Routing\AppRouting;
 
 
-class DummyClass extends  FakeRoutes/*AppRouting*/
+class DummyClass extends AppRouting
 {
 
     /**

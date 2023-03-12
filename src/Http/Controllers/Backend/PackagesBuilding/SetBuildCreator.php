@@ -28,7 +28,10 @@ class SetBuildCreator
     {
         return $this->view->make(
             'backend/PackagesBuilding/SetBuildCreator/index',
-            ['builder' => $builder, 'build_paths' => config('develop.set_builder.build_paths')]
+            [
+                'builder' => $builder,
+                'build_paths' => config($app[CoreInterface::class],'develop.set_builder.build_paths')
+            ]
         );
     }
 
@@ -46,6 +49,6 @@ class SetBuildCreator
         $builder->build($buil_path,$package_name,$package_dirs);
 
 
-        event(new CacheClear('all'));
+        event($app, new CacheClear('all'));
     }
 }

@@ -11,9 +11,8 @@
             <a href="{{$this->route('backend:develop::apps.index')}}" >Приложения</a>
         </li>
         <li>
-            <i class="ti-info-alt"></i>   <a href="{{$this->route('backend:develop::docs.index')}}" >Документация</a>
+            <i class="ti-info-alt"></i>   <a href="https://symbioticphp.com/docs/" >Документация</a>
         </li>
-
         <li>
             <a href="{{$this->route('backend:develop::PackagesBuilding.PackagesCreator.index')}}" >Генерация пакетов</a>
         </li>

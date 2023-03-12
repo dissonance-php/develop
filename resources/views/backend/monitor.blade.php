@@ -64,6 +64,15 @@
         <div class="col-sm-4 col-md-6">
             {{get_class($this->core(\Psr\SimpleCache\CacheInterface::class))}}
         </div>
+        <div class="col-sm-6 col-md-6">Базы данных</div>
+        <div class="col-sm-4 col-md-6">
+            @if($this->core()->has(\Symbiotic\Database\DatabaseManager::class))
+                symbiotic/database - Базовый пакет подключений<br>
+            @endif
+            @if($this->core()->has(\Symbiotic\Database\Eloquent\EloquentManager::class))
+                    symbiotic/eloquent - Laravel ORM
+            @endif
+        </div>
     </div>
     <div class="col-md-12 col-sm-12">
         <h3>Timers</h3>
@@ -85,7 +94,6 @@
         <div class="col-sm-4 col-md-6">{{ \Symbiotic\Develop\Services\Debug\Timer::readableSize(memory_get_usage())}}</div>
         <div class="col-sm-6 col-md-6">Выделенная</div>
         <div class="col-sm-4 col-md-6">{{ \Symbiotic\Develop\Services\Debug\Timer::readableSize(memory_get_usage(true))}}</div>
-
     </div>
     <div class="col-md-12 col-sm-12">
         <a href="{{ $this->route('backend:develop::monitor.timer') }}" target="_blank">
