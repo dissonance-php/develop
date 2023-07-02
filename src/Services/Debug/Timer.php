@@ -134,7 +134,7 @@ class Timer implements \JsonSerializable
         return sprintf($format, $time, $unit);
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize():mixed
     {
        return $this->getTimers();
     }
